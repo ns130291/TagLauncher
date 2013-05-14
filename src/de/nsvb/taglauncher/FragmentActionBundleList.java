@@ -71,12 +71,21 @@ public class FragmentActionBundleList extends ListFragment implements
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
+		
+		//Log.d("##-onCreate-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ßß");
 
 		mAdapter = new ActionBundleListAdapter(getActivity()
 				.getApplicationContext(), R.layout.list_item_card,
 				ActivityMain.mActionBundles);
 
 		setListAdapter(mAdapter);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		//Log.d("##-onResume-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ßß");
 	}
 
 	@Override

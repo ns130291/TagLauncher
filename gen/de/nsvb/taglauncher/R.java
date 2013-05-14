@@ -164,9 +164,16 @@ containing a value of this type.
         public static final int use_default_controller=0x7f010010;
     }
     public static final class dimen {
-        public static final int drag_grip_ridge_gap=0x7f070002;
-        public static final int drag_grip_ridge_size=0x7f070001;
+        public static final int divider_ab_list=0x7f070007;
+        public static final int drag_grip_ridge_gap=0x7f070009;
+        public static final int drag_grip_ridge_size=0x7f070008;
         public static final int p4dp=0x7f070000;
+        public static final int p_ab_card=0x7f070003;
+        public static final int p_ab_card_item=0x7f070004;
+        public static final int p_ab_card_item_image_width=0x7f070006;
+        public static final int p_left_right_ab_list=0x7f070002;
+        public static final int p_top_bottom_ab_list=0x7f070001;
+        public static final int ts_ab_card_item=0x7f070005;
     }
     public static final class drawable {
         public static final int action_pause=0x7f020000;

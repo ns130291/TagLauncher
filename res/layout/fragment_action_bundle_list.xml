@@ -12,9 +12,9 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10dip"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp" >
+        android:dividerHeight="@dimen/divider_ab_list"
+        android:paddingBottom="@dimen/p_top_bottom_ab_list"
+        android:paddingTop="@dimen/p_top_bottom_ab_list" >
     </ListView>
 
     <RelativeLayout

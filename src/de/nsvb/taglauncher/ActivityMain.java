@@ -27,7 +27,7 @@ public class ActivityMain extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//TODO set to false
+		// TODO set to false
 		Log.DEBUG = true;
 
 		// Background von Activity entfernen um Overdraw zu vermeiden --> macht
@@ -36,8 +36,9 @@ public class ActivityMain extends Activity implements
 
 		Store.setContext(getApplicationContext());
 
-		if (savedInstanceState == null && mActionBundles.size() == 0) {
+		if (savedInstanceState == null || mActionBundles.size() == 0) {
 			loadFromDB();
+			//Log.d("##-onCreate-## savedInstanceState == null || mActionBundles.size() == 0 " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ßß");
 		}
 
 		if (findViewById(R.id.fragment_container) != null) {
@@ -59,6 +60,7 @@ public class ActivityMain extends Activity implements
 		super.onResume();
 		if (mActionBundles.size() == 0) {
 			loadFromDB();
+			//Log.d("##-onResume-## mActionBundles.size() == 0 " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ßß");
 		}
 	}
 
@@ -77,6 +79,7 @@ public class ActivityMain extends Activity implements
 			mActionBundles.add(ab);
 			cs.moveToNext();
 		}
+		//Log.d("## " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ßß");
 	}
 
 	@Override
