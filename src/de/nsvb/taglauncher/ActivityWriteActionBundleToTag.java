@@ -81,7 +81,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
 
         if (mAdapter == null) {
             finish();
-            Toast.makeText(getApplicationContext(), "Gerät unterstützt NFC nicht",
+            Toast.makeText(getApplicationContext(), getString(R.string.no_nfc_support),
                     Toast.LENGTH_LONG).show();
         }
 
@@ -198,7 +198,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
     @Override
     public void onNfcDisabledDialogNegativeClick() {
         finish();
-        Toast.makeText(getApplicationContext(), "NFC ist nicht aktiviert",
+        Toast.makeText(getApplicationContext(), getString(R.string.nfc_disabled),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -218,14 +218,14 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
         protected void onPostExecute(Boolean result) {
 
             if (result) {
-                Toast.makeText(getApplicationContext(), "Tag beschrieben",
+                Toast.makeText(getApplicationContext(), getString(R.string.writing_completed),
                         Toast.LENGTH_SHORT).show();
-                Log.d("result true");
+                //Log.d("result true");
                 finish();
             } else {
                 mText.setText(mText.getText() + "\n\n"
                         + getString(R.string.waiting_for_tag));
-                Log.d("result false");
+                //Log.d("result false");
             }
             super.onPostExecute(result);
         }
@@ -237,7 +237,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             boolean result = false;
 
             if (mTag == null || message.length < 1) {
-                publishProgress("Es wurde kein Tag erkannt");
+                publishProgress(getString(R.string.no_tag_found));
                 return result;
             }
 
@@ -246,7 +246,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             if (tag == null) {
                 NdefFormatable ndefFormatable = NdefFormatable.get(mTag);
                 if (ndefFormatable == null) {
-                    publishProgress("Tag ist mit dem Gerät nicht kompatibel");
+                    publishProgress(getString(R.string.tag_not_compatible));
                     return result;
                 }
 
@@ -254,21 +254,21 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
                     ndefFormatable.connect();
                     if (ndefFormatable.isConnected()) {
                         ndefFormatable.format(null);
-                        publishProgress("Tag wurde formatiert. Bitte erneut an das Gerät halten");
+                        publishProgress(getString(R.string.tag_formatted_please_rescan));
                     } else {
-                        publishProgress("Verbindung zum Tag verloren. Bitte erneut an das Gerät halten");
+                        publishProgress(getString(R.string.lost_connection_please_rescan));
                     }
                 } catch (TagLostException e) {
-                    publishProgress("Verbindung zum Tag verloren. Bitte erneut an das Gerät halten");
+                    publishProgress(getString(R.string.lost_connection_please_rescan));
                     e.printStackTrace();
                 } catch (IOException e) {
-                    publishProgress("Fehler beim Beschreiben. Bitte erneut probieren");
+                    publishProgress(getString(R.string.write_error_please_retry));
                     e.printStackTrace();
                 } catch (FormatException e) {
-                    publishProgress("FormatException Exception: Allgemeiner Fehler");
+                    publishProgress(getString(R.string.format_exception));
                     e.printStackTrace();
                 } catch (Exception e) {
-                    publishProgress("Allgemeiner Fehler");
+                    publishProgress(getString(R.string.generic_error));
                     e.printStackTrace();
                 }
                 return result;
@@ -277,12 +277,12 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             try {
                 tag.connect();
             } catch (IOException e) {
-                publishProgress("Verbindung zum Tag konnte nicht aufgebaut werden");
+                publishProgress(getString(R.string.connection_not_possible_please_retry));
                 return result;
             }
 
             if (!tag.isWritable()) {
-                publishProgress("Tag ist schreibgeschützt und kann nicht beschreiben werden");
+                publishProgress(getString(R.string.tag_write_protected));
                 return result;
             }
 
@@ -303,7 +303,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             }
 
             if (!tag.isConnected()) {
-                publishProgress("Verbindung zum Tag verloren. Bitte erneut an das Gerät halten");
+                publishProgress(getString(R.string.lost_connection_please_rescan));
                 return result;
             }
 
@@ -315,19 +315,19 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
                 result = true;
             } catch (TagLostException e) {
                 result = false;
-                publishProgress("Verbindung zum Tag verloren. Bitte erneut an das Gerät halten");
+                publishProgress(getString(R.string.lost_connection_please_rescan));
                 e.printStackTrace();
             } catch (FormatException e) {
                 result = false;
-                publishProgress("FormatException Exception: Allgemeiner Fehler");
+                publishProgress(getString(R.string.format_exception));
                 e.printStackTrace();
             } catch (IOException e) {
                 result = false;
-                publishProgress("Fehler beim Beschreiben. Bitte erneut probieren");
+                publishProgress(getString(R.string.write_error_please_retry));
                 e.printStackTrace();
             } catch (Exception e) {
                 result = false;
-                publishProgress("Allgemeiner Fehler");
+                publishProgress(getString(R.string.generic_error));
                 e.printStackTrace();
             }
             return result;

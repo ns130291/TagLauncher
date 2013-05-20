@@ -40,6 +40,18 @@
     <string name="settings">Einstellungen</string>
     <string name="skip">Überspringen</string>
     <string name="nfc_disabled_dialog">Für die optimale Funktionalität der App muss NFC auf dem Gerät aktiviert sein.</string>
+    <string name="no_nfc_support">Gerät unterstützt NFC nicht</string>
+    <string name="nfc_disabled">NFC ist nicht aktiviert</string>
+    <string name="writing_completed">Tag beschrieben</string>
+    <string name="no_tag_found">Es wurde kein Tag erkannt</string>
+    <string name="tag_not_compatible">Tag ist mit dem Gerät nicht kompatibel</string>
+    <string name="tag_formatted_please_rescan">Tag wurde formatiert. Bitte erneut an das Gerät halten</string>
+    <string name="lost_connection_please_rescan">Verbindung zum Tag verloren. Bitte erneut an das Gerät halten</string>
+    <string name="write_error_please_retry">Fehler beim Beschreiben. Bitte erneut probieren</string>
+    <string name="format_exception">FormatException Exception: Allgemeiner Fehler</string>
+    <string name="generic_error">Allgemeiner Fehler</string>
+    <string name="connection_not_possible_please_retry">Verbindung zum Tag konnte nicht aufgebaut werden. Bitte erneut versuchen</string>
+    <string name="tag_write_protected">Tag ist schreibgeschützt und kann nicht beschreiben werden</string>
 
     <string name="ac_bluetooth_on">Bluetooth anschalten</string>
     <string name="ac_bluetooth_off">Bluetooth ausschalten</string>

@@ -99,7 +99,7 @@ public class ActivityMain extends Activity implements
                     null, "id");
 
             cs.moveToFirst();
-            while (cs.isAfterLast() == false) {
+            while (!cs.isAfterLast()) {
                 ActionBundle ab = new ActionBundle(getApplicationContext());
                 ab.setName(cs.getString(cs.getColumnIndex(Store.DB_AB_NAME)));
                 ab.init(cs.getBlob(cs.getColumnIndex(Store.DB_AB_MESSAGE)));
