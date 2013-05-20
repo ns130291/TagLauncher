@@ -112,7 +112,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 						}
 						if (pos >= 0) {
 							byte[] extendedMessage = new byte[pos - i];
-							for (int j = 0; j < (pos - 1)
+							for (int j = 0; j < extendedMessage.length
 									&& (i + 1) < message.length; j++) {
 								i++;
 								extendedMessage[j] = message[i];

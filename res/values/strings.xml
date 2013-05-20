@@ -36,7 +36,11 @@
     <string name="tag_too_small">Das Aktionsbündel ist zu groß für den verwendeten Tag, da dieser nur %1$s Bytes groß ist. Bitte einen größeren Tag verwenden oder das Aktionsbündel verkleinern.</string>
     <string name="tag_execute_success">Aktionsbündel ausgeführt</string>
     <string name="tag_execute_failure">Fehler beim Ausführen des Aktionsbündels</string>
-    
+    <string name="first_run_dialog">Ihr Gerät ist leider nicht NFC-fähig. Daher können Aktionsbündel nur erstellt werden, jedoch nicht auf NFC-Tags geschrieben werden.</string>
+    <string name="settings">Einstellungen</string>
+    <string name="skip">Überspringen</string>
+    <string name="nfc_disabled_dialog">Für die optimale Funktionalität der App muss NFC auf dem Gerät aktiviert sein.</string>
+
     <string name="ac_bluetooth_on">Bluetooth anschalten</string>
     <string name="ac_bluetooth_off">Bluetooth ausschalten</string>
     <string name="ac_bluetooth_toggle">Bluetooth umschalten</string>

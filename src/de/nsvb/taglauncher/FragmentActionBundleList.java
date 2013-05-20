@@ -72,7 +72,7 @@ public class FragmentActionBundleList extends ListFragment implements
 
 		setHasOptionsMenu(true);
 		
-		//Log.d("##-onCreate-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ßß");
+		//Log.d("##-onCreate-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ");
 
 		mAdapter = new ActionBundleListAdapter(getActivity()
 				.getApplicationContext(), R.layout.list_item_card,
@@ -85,7 +85,7 @@ public class FragmentActionBundleList extends ListFragment implements
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		//Log.d("##-onResume-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ßß");
+		//Log.d("##-onResume-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ");
 	}
 
 	@Override

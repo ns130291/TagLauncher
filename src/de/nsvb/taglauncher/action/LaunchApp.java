@@ -119,7 +119,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		try {
 			ctx.startActivity(start);
 		} catch (ActivityNotFoundException e) {
-			//App nicht vorhanden, Play Store öffnen
+			//App nicht vorhanden, Play Store Ã¶ffnen
 			Intent intent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("market://details?id=" + mAppPackageName));
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
