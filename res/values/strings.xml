@@ -17,7 +17,6 @@
     <string name="rename">Umbennen</string>
     <string name="cancel">Abbrechen</string>
     <string name="add_action">Aktion hinzufügen</string>
-    <string name="test_tag">Tag testen</string>
     <string name="title_activity_activity_all_actions">Alle Aktionen</string>
     <string name="details">Details</string>
     <string name="copy_string">%1$s Kopie</string>
@@ -25,6 +24,7 @@
     <string name="volume">Lautstärke</string>
     <string name="apply">Übernehmen</string>
     <string name="s_byte">%1$s Byte</string>
+    <string name="s_byte_2">%1$s von %2$s Byte</string>
     <string name="write_ab_to_tag">Tag beschreiben</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_execute_tag">ActivityExecuteTag</string>
@@ -52,6 +52,9 @@
     <string name="generic_error">Allgemeiner Fehler</string>
     <string name="connection_not_possible_please_retry">Verbindung zum Tag konnte nicht aufgebaut werden. Bitte erneut versuchen</string>
     <string name="tag_write_protected">Tag ist schreibgeschützt und kann nicht beschreiben werden</string>
+    <string name="execute_action_bundle">Aktionsbündel ausführen</string>
+    <string name="tag_info">Tag Info</string>
+    <string name="importAB">Importieren</string>
 
     <string name="ac_bluetooth_on">Bluetooth anschalten</string>
     <string name="ac_bluetooth_off">Bluetooth ausschalten</string>

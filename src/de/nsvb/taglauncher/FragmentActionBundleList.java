@@ -100,12 +100,24 @@ public class FragmentActionBundleList extends ListFragment implements
 		case R.id.add_action_bundle:
 			createNewActionBundle();
 			return true;
+        case R.id.test_tag:
+            testTag();
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	@Override
+    private void testTag() {
+        if(ActivityMain.noNFC){
+            Toast.makeText(getActivity(), getString(R.string.no_nfc_support),
+                    Toast.LENGTH_LONG).show();
+        }else{
+            startActivity(new Intent(getActivity(), ActivityTagInfo.class));
+        }
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater
@@ -343,10 +355,10 @@ public class FragmentActionBundleList extends ListFragment implements
 				Log.d("~~Size of current action bundle "
 						+ actionBundle.getSize());
 
-				size.setText(String.format(
-						getResources().getString(R.string.s_byte),
-						actionBundle.getSize())
-						+ "");
+                size.setText(String.format(
+                        getResources().getString(R.string.s_byte),
+                        actionBundle.getSize())
+                        + "");
 			}
 
 			return v;

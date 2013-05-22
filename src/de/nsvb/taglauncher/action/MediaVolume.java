@@ -32,7 +32,7 @@ public class MediaVolume extends ExtendedAction {
 		if (mVolume < 0) {
 			mVolume = mVolume + 256;
 		}
-		Log.d("mVolume " + mVolume);
+		//Log.d("mVolume " + mVolume);
 		if (mMessage.size() > 1) {
 			mMessage.remove(1);
 		}
@@ -104,13 +104,13 @@ public class MediaVolume extends ExtendedAction {
 
 	@Override
 	public void init(Context ctx, byte[] message) {
-		Log.d("+MediaVolume+ init-message "
-						+ ActivityExecuteTag.toHex(message) + " "
-						+ message.length);
+		//Log.d("+MediaVolume+ init-message "
+		//				+ ActivityExecuteTag.toHex(message) + " "
+		//				+ message.length);
 		setVolume(message[0]);
-		Log.d("+MediaVolume+ after init "
-						+ mMessage.get(1) + " "
-						+ mMessage.size());
+		//Log.d("+MediaVolume+ after init "
+		//				+ mMessage.get(1) + " "
+		//				+ mMessage.size());
 	}
 
 	// Parcel functions

@@ -28,6 +28,7 @@ public class ActivityMain extends Activity implements
     private static final String PREFS_NAME = "prefs";
     public static ArrayList<ActionBundle> mActionBundles = new ArrayList<ActionBundle>();
     private static final String ACTION_BUNDLE_LIST = "abl";
+    public static boolean noNFC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class ActivityMain extends Activity implements
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(getApplicationContext());
         if (nfcAdapter == null) {
+            noNFC = true;
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             boolean firstRun = settings.getBoolean("first_run", true);
             if (firstRun) {
@@ -59,6 +61,7 @@ public class ActivityMain extends Activity implements
                 dialogFragmentFirstRun.show(getFragmentManager(), "FirstRunDialog");
             }
         }else{
+            noNFC = false;
             if(!nfcAdapter.isEnabled()){
                 DialogFragmentNfcDisabled dialogFragmentNfcDisabled = new DialogFragmentNfcDisabled();
                 dialogFragmentNfcDisabled.show(getFragmentManager(), "NfcDisabledDialog");
@@ -91,6 +94,9 @@ public class ActivityMain extends Activity implements
     }
 
     private void loadFromDB() {
+        //long start = System.currentTimeMillis();
+        //long init = 0;
+
         SQLiteDatabase db = Store.instance().getReadableDatabase();
         Cursor cs = null;
         if (db != null) {
@@ -102,13 +108,16 @@ public class ActivityMain extends Activity implements
             while (!cs.isAfterLast()) {
                 ActionBundle ab = new ActionBundle(getApplicationContext());
                 ab.setName(cs.getString(cs.getColumnIndex(Store.DB_AB_NAME)));
+                //long i = System.currentTimeMillis();
                 ab.init(cs.getBlob(cs.getColumnIndex(Store.DB_AB_MESSAGE)));
+                //init += System.currentTimeMillis()-i;
                 ab.setId((int) cs.getLong(cs.getColumnIndex("id")));
                 mActionBundles.add(ab);
                 cs.moveToNext();
             }
         }
 
+        //Log.d(">-#-< Laden aus DB "+(System.currentTimeMillis()-start)+" ms, init-Dauer "+init+" ms");
         //Log.d("## " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ��");
     }
 

@@ -45,7 +45,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		} else {
 			db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 		}
-		Log.d("** Store in addAction()");
+		//Log.d("** Store in addAction()");
 
 	}
 
@@ -61,7 +61,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in removeAction()");
+		//Log.d("** Store in removeAction()");
 	}
 
 	public void switchActions(int from, int to) {
@@ -73,7 +73,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in switchActions()");
+		//Log.d("** Store in switchActions()");
 	}
 
 	public boolean execute() {
@@ -94,13 +94,19 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	}
 
 	public void init(byte[] message) {
-		Log.d("init-message " + ActivityExecuteTag.toHex(message));
+        //long getAction = 0;
+        //long variableExtraSize = 0;
+        //long extended = 0;
+		//Log.d("init-message " + ActivityExecuteTag.toHex(message));
 		for (int i = 0; i < message.length; i++) {
+            //long x = System.nanoTime();
 			Action a = ActionID.getAction(message[i]);
+            //getAction +=  System.nanoTime() - x;
 			if (a != null) {
 				if (a.isExtended()) {
 					ExtendedAction ea = (ExtendedAction) a;
 					if (ea.isVariableExtraSize()) {
+                        //long y = System.currentTimeMillis();
 						ExtendedActionVariableSize eavs = (ExtendedActionVariableSize) ea;
 						byte delimiter = eavs.getDelimiter();
 						int pos = -1;
@@ -119,7 +125,9 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 							}
 							eavs.init(mAppContext, extendedMessage);
 						}
+                        //variableExtraSize += System.currentTimeMillis() - y;
 					} else {
+                        //long y = System.currentTimeMillis();
 						byte[] extendedMessage = new byte[ea
 								.getExtendedLength()];
 						for (int j = 0; j < ea.getExtendedLength()
@@ -128,11 +136,13 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 							extendedMessage[j] = message[i];
 						}
 						ea.init(mAppContext, extendedMessage);
+                        //extended += System.currentTimeMillis() - y;
 					}
 				}
 				mActions.add(a);
 			}
 		}
+        //Log.d("AB init: getAction "+getAction/1000.0/1000.0+" ms, variableExtraSize "+variableExtraSize+" ms, extended "+extended+" ms");
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -155,10 +165,10 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	private void generateMessage() {
 		NdefRecord data;
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			data = NdefRecord.createExternal("de.nsvb", "taglauncher",
+			data = NdefRecord.createExternal("nsvb.de", "taglauncher",
 					getMessageByte());
 		} else {
-			data = NdefHelper.createExternal("de.nsvb", "taglauncher",
+			data = NdefHelper.createExternal("nsvb.de", "taglauncher",
 					getMessageByte());
 		}
 		// TODO vermutlich weglassen, macht es einfacher die richtige Activity
@@ -183,8 +193,8 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		for (int i = 0; i < recordMessage.size(); i++) {
 			recordMessageByte[i] = recordMessage.get(i);
 		}
-		Log.d("getMessageByte() "
-						+ ActivityExecuteTag.toHex(recordMessageByte));
+		//Log.d("getMessageByte() "
+		//				+ ActivityExecuteTag.toHex(recordMessageByte));
 		return recordMessageByte;
 	}
 
@@ -206,7 +216,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in setName()");
+		//Log.d("** Store in setName()");
 	}
 
 	public void setId(int id) {
@@ -218,7 +228,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 		db.delete(Store.DB_AB_TABLENAME, "id=" + mId, null);
 
-		Log.d("** Store in delete()");
+		//Log.d("** Store in delete()");
 	}
 
 	public void notifyChange() {
@@ -233,7 +243,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in notifyChange()");
+		//Log.d("** Store in notifyChange()");
 	}
 
 	public List<Action> getActionList() {

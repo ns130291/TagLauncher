@@ -90,7 +90,6 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             dialogFragmentNfcDisabled.setCancelable(false);
             dialogFragmentNfcDisabled.show(getFragmentManager(), "NfcDisabledDialog");
         } else {
-
             mText.setText(R.string.waiting_for_tag);
         }
 

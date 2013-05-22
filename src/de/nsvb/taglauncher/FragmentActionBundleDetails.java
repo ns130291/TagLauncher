@@ -212,6 +212,9 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		case R.id.write_ab_to_tag:
 			writeAbToTag();
 			return true;
+        case R.id.execute_action_bundle:
+            executeActionBundle();
+            return true;
 		case android.R.id.home:
 			getFragmentManager().popBackStack();
 			return true;
@@ -220,14 +223,27 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		}
 	}
 
-	private void writeAbToTag() {
-		Intent writeMessage = new Intent(getActivity(),
-				ActivityWriteActionBundleToTag.class);
-		writeMessage.putExtra(ActivityWriteActionBundleToTag.MESSAGE,
-				ActivityMain.mActionBundles.get(mPosition).getMessage());
+    private void executeActionBundle() {
+        if(ActivityMain.mActionBundles.get(mPosition).execute()){
+            Toast.makeText(getActivity(), R.string.tag_execute_success, Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getActivity(), R.string.tag_execute_failure, Toast.LENGTH_LONG).show();
+        }
+    }
 
-		startActivity(writeMessage);
-	}
+    private void writeAbToTag() {
+        if (ActivityMain.noNFC) {
+            Toast.makeText(getActivity(), getString(R.string.no_nfc_support),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Intent writeMessage = new Intent(getActivity(),
+                    ActivityWriteActionBundleToTag.class);
+            writeMessage.putExtra(ActivityWriteActionBundleToTag.MESSAGE,
+                    ActivityMain.mActionBundles.get(mPosition).getMessage());
+
+            startActivity(writeMessage);
+        }
+    }
 
 	private void deleteActionBundle() {
 		DialogFragmentDelete dialog = new DialogFragmentDelete();

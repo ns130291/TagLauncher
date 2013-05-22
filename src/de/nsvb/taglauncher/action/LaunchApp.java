@@ -55,7 +55,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 			loadApps(ctx, pm);
 		}		
 		
-		Log.d(ActivityExecuteTag.toHex(message) + " blubbbbbbbbb");
+		//Log.d(ActivityExecuteTag.toHex(message) + " blubbbbbbbbb");
 		int pos = -1;
 		for (int i = 0; i < message.length; i++) {
 			if (message[i] == mDelimiter2) {
@@ -101,7 +101,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 			}
 		}
 
-		Log.d("pName " + packageName + " cName " + className +" "+className.length()+" "+cName.length);
+		//Log.d("pName " + packageName + " cName " + className +" "+className.length()+" "+cName.length);
 
 		setPackageName(packageName, className);
 
@@ -140,11 +140,12 @@ public class LaunchApp extends ExtendedActionVariableSize {
 	}
 	
 	private void loadApps(Context ctx, PackageManager pm){
+        //long start = System.currentTimeMillis();
 		Intent localIntent = new Intent("android.intent.action.MAIN", null);
 		localIntent.addCategory("android.intent.category.LAUNCHER");
 		mAppList = (ArrayList<ResolveInfo>) pm.queryIntentActivities(
 				localIntent, 0);
-		Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(pm));		
+        //Log.d("loadApps: "+(System.currentTimeMillis()-start)+" ms");
 	}
 
 	@Override
@@ -152,6 +153,9 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		mPm = ctx.getPackageManager();
 		if(mAppList == null){
 			loadApps(ctx, mPm);
+            //start = System.currentTimeMillis();
+            Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
+            //Log.d("loadApps sort: "+(System.currentTimeMillis()-start)+" ms");
 		}
 
 		Spinner spinner = (Spinner) v.findViewById(R.id.select_app);
