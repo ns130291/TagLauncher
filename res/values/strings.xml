@@ -69,4 +69,5 @@
     <string name="ac_launch_app">%1$s starten</string>
     <string name="ac_media_play">Musik abspielen</string>
     <string name="ac_media_pause">Musik pausieren</string>
+    <string name="duplicate_error">Duplizieren fehlgeschlagen</string>
 </resources>

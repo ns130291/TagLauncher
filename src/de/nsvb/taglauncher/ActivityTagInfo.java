@@ -28,6 +28,9 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
     private PendingIntent mPendingIntent;
     private IntentFilter[] mFilters;
     private String[][] mTechLists;
+    private ActionBundle mAB;
+
+    public static String ACTION_BUNDLE_ID = "ActionBundleId";
 
     @Override
     public void onCreate(Bundle savedState) {
@@ -135,21 +138,27 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
                     if (record.getTnf() == 0x04) {
                         byte[] m = record.getPayload();
                         if (m.length > 0) {
-                            ActionBundle ab = new ActionBundle(getApplicationContext());
-                            ab.init(m);
-                            for (Action action : ab) {
-                                View actionView = View.inflate(getApplicationContext(),
-                                        R.layout.list_item_action, null);
+                            try {
+                                mAB = new ActionBundle(getApplicationContext());
+                                mAB.init(m);
+                                for (Action action : mAB) {
+                                    View actionView = View.inflate(getApplicationContext(),
+                                            R.layout.list_item_action, null);
 
-                                ImageView actionImg = (ImageView) actionView
-                                        .findViewById(R.id.actionImg);
-                                actionImg.setImageResource(action.getImage());
+                                    ImageView actionImg = (ImageView) actionView
+                                            .findViewById(R.id.actionImg);
+                                    actionImg.setImageResource(action.getImage());
 
-                                TextView actionText = (TextView) actionView
-                                        .findViewById(R.id.actionText);
-                                actionText.setText(action.getDescription(getApplicationContext()));
+                                    TextView actionText = (TextView) actionView
+                                            .findViewById(R.id.actionText);
+                                    actionText.setText(action.getDescription(getApplicationContext()));
 
-                                container.addView(actionView);
+                                    container.addView(actionView);
+                                }
+                                invalidateOptionsMenu();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                mAB = null;
                             }
                         }
                     }
@@ -164,6 +173,14 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
         }
 
         parent.addView(v);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mAB != null) {
+            menu.findItem(R.id.importAB).setEnabled(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -182,7 +199,15 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
     }
 
     private void importActionBundle() {
-
+        if (mAB != null) {
+            mAB.store();
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(ACTION_BUNDLE_ID, mAB.getId());
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }else{
+            finish();
+        }
     }
 
     @Override

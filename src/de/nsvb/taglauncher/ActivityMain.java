@@ -121,6 +121,26 @@ public class ActivityMain extends Activity implements
         //Log.d("## " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ��");
     }
 
+    private void loadFromDB(int id) {
+        SQLiteDatabase db = Store.instance().getReadableDatabase();
+        Cursor cs = null;
+        if (db != null) {
+            cs = db.query(Store.DB_AB_TABLENAME, new String[]{"id",
+                    Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, "id = " + id, null, null,
+                    null, "id");
+
+            cs.moveToFirst();
+            while (!cs.isAfterLast()) {
+                ActionBundle ab = new ActionBundle(getApplicationContext());
+                ab.setName(cs.getString(cs.getColumnIndex(Store.DB_AB_NAME)));
+                ab.init(cs.getBlob(cs.getColumnIndex(Store.DB_AB_MESSAGE)));
+                ab.setId((int) cs.getLong(cs.getColumnIndex("id")));
+                mActionBundles.add(ab);
+                cs.moveToNext();
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -143,6 +163,13 @@ public class ActivityMain extends Activity implements
                 fragmentActionDetails);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onActionBundleImported(int id) {
+        if (id != -1 && id != 0) {
+            loadFromDB(id);
+        }
     }
 
     @Override

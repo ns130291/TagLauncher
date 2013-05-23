@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import de.nsvb.taglauncher.ActivityExecuteTag;
 import de.nsvb.taglauncher.R;
 import de.nsvb.taglauncher.db.Store;
@@ -29,11 +31,26 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		this.mAppContext = appContext;
 	}
 
+    public int getId(){
+        return mId;
+    }
+
+    public void store(){
+        SQLiteDatabase db = Store.instance().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Store.DB_AB_MESSAGE, getMessageByte());
+        if (mId == 0) {
+            values.put(Store.DB_AB_NAME, mName);
+            mId = (int) db.insert(Store.DB_AB_TABLENAME, null, values);
+        } else {
+            db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
+        }
+    }
+
 	public void addAction(Action action) {
 		mSize = 0;
 		mNdefMessage = null;
 		mActions.add(action);
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -53,7 +70,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		mSize = 0;
 		mNdefMessage = null;
 		mActions.remove(position);
-		// TODO: in DB speichern
+
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -65,7 +82,6 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	}
 
 	public void switchActions(int from, int to) {
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -171,14 +187,8 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 			data = NdefHelper.createExternal("nsvb.de", "taglauncher",
 					getMessageByte());
 		}
-		// TODO vermutlich weglassen, macht es einfacher die richtige Activity
-		// zu starten
-		// NdefRecord aar =
-		// NdefRecord.createApplicationRecord("de.nsvb.writenfc");
-		// NdefRecord records[] = new NdefRecord[2];
+
 		NdefRecord records[] = new NdefRecord[1];
-		// records[0] = aar;
-		// records[1] = data;
 		records[0] = data;
 		mNdefMessage = new NdefMessage(records);
 	}
@@ -208,7 +218,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 	public void setName(String name) {
 		this.mName = name;
-		// TODO: in DB speichern
+
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -224,7 +234,6 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	}
 
 	public void delete() {
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 		db.delete(Store.DB_AB_TABLENAME, "id=" + mId, null);
 
@@ -235,7 +244,6 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		mSize = 0;
 		mNdefMessage = null;
 
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -265,4 +273,5 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 				this.getName()));
 		return newAb;
 	}
+
 }
