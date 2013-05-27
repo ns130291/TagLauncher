@@ -15,7 +15,7 @@ public class DialogFragmentFirstRun extends DialogFragment {
         public void onFirstRunDialogClick();
     }
 
-    FirstRunDialogListener mListener;
+    private FirstRunDialogListener mListener;
 
     // Override the Fragment.onAttach() method to instantiate the
     // NoticeDialogListener

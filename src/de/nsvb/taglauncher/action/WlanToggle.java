@@ -10,7 +10,7 @@ public class WlanToggle extends Action {
 	
 	public WlanToggle() {
 		mImageResource = R.drawable.perm_group_network;
-		mMessage.add(new Byte(ActionID.WLAN_TOGGLE));
+		mMessage.add(ActionID.WLAN_TOGGLE);
 	}
 
 	@Override

@@ -22,8 +22,8 @@ public class RingerNormal extends ExtendedAction {
 	public RingerNormal() {
 		super();
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.RINGER_NORMAL));
-		mMessage.add(new Byte((byte) 255));
+		mMessage.add(ActionID.RINGER_NORMAL);
+		mMessage.add((byte) 255);
 		mView = R.layout.ac_ringer_normal;
 	}
 
@@ -42,9 +42,9 @@ public class RingerNormal extends ExtendedAction {
 			mMessage.remove(1);
 		}
 		if (mVolume >= 0 && mVolume <= 254) {
-			mMessage.add(new Byte((byte) mVolume));
+			mMessage.add((byte) mVolume);
 		} else {
-			mMessage.add(new Byte((byte) 255));
+			mMessage.add((byte) 255);
 		}
 	}
 

@@ -42,7 +42,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 	public LaunchApp() {
 		super();
 		mImageResource = R.drawable.app_icon;
-		mMessage.add(new Byte(ActionID.LAUNCH_APP));
+		mMessage.add(ActionID.LAUNCH_APP);
 		mDelimiter = ';';
 		mDelimiter2 = ':';
 		mView = R.layout.ac_launch_app;
@@ -65,9 +65,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		}
 
 		byte[] pName = new byte[pos];
-		for (int i = 0; i < pName.length; i++) {
-			pName[i] = message[i];
-		}
+        System.arraycopy(message, 0, pName, 0, pName.length);
 
 		String packageName = null;
 		try {
@@ -201,20 +199,20 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		byte[] pName = packageName.getBytes(Charset.forName("US-ASCII"));
 		byte[] cName = className.getBytes(Charset.forName("US-ASCII"));
 
-		List<Byte> message = new ArrayList<Byte>();
-		message.add(new Byte(ActionID.LAUNCH_APP));
+		List<Byte> message = new ArrayList<>();
+		message.add(ActionID.LAUNCH_APP);
 
-		for (int i = 0; i < pName.length; i++) {
-			message.add(new Byte(pName[i]));
-		}
+        for (byte aPName : pName) {
+            message.add(aPName);
+        }
 
-		message.add(new Byte(mDelimiter2));
+		message.add(mDelimiter2);
 
-		for (int i = 0; i < cName.length; i++) {
-			message.add(new Byte(cName[i]));
-		}
+        for (byte aCName : cName) {
+            message.add(aCName);
+        }
 
-		message.add(new Byte(mDelimiter));
+		message.add(mDelimiter);
 
 		mMessage = message;
 	}
@@ -255,7 +253,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			mTextViewResourceId = textViewResourceId;
 			mPm = pm;
-			mDrawables = new HashMap<String, Drawable>();
+			mDrawables = new HashMap<>();
 		}
 
 		@Override

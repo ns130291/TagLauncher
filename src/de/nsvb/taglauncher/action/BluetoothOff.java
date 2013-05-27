@@ -10,7 +10,7 @@ public class BluetoothOff extends Action {
 	
 	public BluetoothOff() {
 		mImageResource = R.drawable.perm_group_bluetooth;
-		mMessage.add(new Byte(ActionID.BLUETOOTH_OFF));
+		mMessage.add(ActionID.BLUETOOTH_OFF);
 	}
 
 	@Override

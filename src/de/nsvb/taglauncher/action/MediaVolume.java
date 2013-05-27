@@ -17,8 +17,8 @@ public class MediaVolume extends ExtendedAction {
 	public MediaVolume() {
 		super();
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.MEDIA_VOLUME));
-		mMessage.add(new Byte((byte) 128));
+		mMessage.add(ActionID.MEDIA_VOLUME);
+		mMessage.add((byte) 128);
 		mView = R.layout.ac_media_volume;
 	}
 
@@ -37,7 +37,7 @@ public class MediaVolume extends ExtendedAction {
 			mMessage.remove(1);
 		}
 		if (mVolume >= 0 && mVolume <= 255) {
-			mMessage.add(new Byte((byte) mVolume));
+			mMessage.add((byte) mVolume);
 		}
 	}
 

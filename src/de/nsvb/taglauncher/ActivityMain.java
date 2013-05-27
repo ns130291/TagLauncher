@@ -11,9 +11,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.Menu;
 
+import android.view.MenuItem;
 import de.nsvb.taglauncher.FragmentActionBundleDetails.FragmentActionBundleListener;
 import de.nsvb.taglauncher.FragmentActionBundleList.OnActionBundleSelectedListener;
 import de.nsvb.taglauncher.FragmentActionExtended.OnApplyListener;
@@ -26,7 +28,7 @@ public class ActivityMain extends Activity implements
         OnApplyListener, DialogFragmentFirstRun.FirstRunDialogListener, DialogFragmentNfcDisabled.NfcDisabledDialogListener {
 
     private static final String PREFS_NAME = "prefs";
-    public static ArrayList<ActionBundle> mActionBundles = new ArrayList<ActionBundle>();
+    public static ArrayList<ActionBundle> mActionBundles = new ArrayList<>();
     private static final String ACTION_BUNDLE_LIST = "abl";
     public static boolean noNFC;
 
@@ -34,6 +36,8 @@ public class ActivityMain extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         // TODO set to false
         Log.DEBUG = true;
@@ -98,7 +102,7 @@ public class ActivityMain extends Activity implements
         //long init = 0;
 
         SQLiteDatabase db = Store.instance().getReadableDatabase();
-        Cursor cs = null;
+        Cursor cs;
         if (db != null) {
             cs = db.query(Store.DB_AB_TABLENAME, new String[]{"id",
                     Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, null, null, null,
@@ -123,7 +127,7 @@ public class ActivityMain extends Activity implements
 
     private void loadFromDB(int id) {
         SQLiteDatabase db = Store.instance().getReadableDatabase();
-        Cursor cs = null;
+        Cursor cs;
         if (db != null) {
             cs = db.query(Store.DB_AB_TABLENAME, new String[]{"id",
                     Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, "id = " + id, null, null,
@@ -145,6 +149,29 @@ public class ActivityMain extends Activity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_settings:
+                showSettings();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettings() {
+        FragmentSettings fragmentSettings = new FragmentSettings();
+
+        FragmentTransaction fragmentTransaction = getFragmentManager()
+                .beginTransaction();
+        fragmentTransaction
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.fragment_container,
+                fragmentSettings);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

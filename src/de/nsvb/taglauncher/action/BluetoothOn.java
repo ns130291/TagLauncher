@@ -10,7 +10,7 @@ public class BluetoothOn extends Action {
 
 	public BluetoothOn() {
 		mImageResource = R.drawable.perm_group_bluetooth;
-		mMessage.add(new Byte(ActionID.BLUETOOTH_ON));
+		mMessage.add(ActionID.BLUETOOTH_ON);
 	}
 
 	@Override

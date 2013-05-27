@@ -17,7 +17,7 @@ public class DialogFragmentNfcDisabled extends DialogFragment {
         public void onNfcDisabledDialogNegativeClick();
     }
 
-    NfcDisabledDialogListener mListener;
+    private NfcDisabledDialogListener mListener;
 
     // Override the Fragment.onAttach() method to instantiate the
     // NoticeDialogListener

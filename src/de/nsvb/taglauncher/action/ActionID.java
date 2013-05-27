@@ -87,19 +87,19 @@ public class ActionID {
 	 */
 	public List<Action> getActionList() {
 		Field[] fields = ActionID.class.getFields();
-		List<Action> actions = new ArrayList<Action>();
-		for (int i = 0; i < fields.length; i++) {
-			try {
-				Action temp = getAction(fields[i].getByte(getClass()));
-				if (temp != null) {
-					actions.add(temp);
-				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
+		List<Action> actions = new ArrayList<>();
+        for (Field field : fields) {
+            try {
+                Action temp = getAction(field.getByte(getClass()));
+                if (temp != null) {
+                    actions.add(temp);
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 		Collections.sort(actions);
 		return actions;
 	}

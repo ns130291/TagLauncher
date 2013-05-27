@@ -41,8 +41,8 @@ public class FragmentActionBundleList extends ListFragment implements
 	private View mSelectedView;
 	private boolean mNewActionBundle;
 
-	public final static int PICK_ACTION_REQUEST = 12345;
-    public final static int IMPORT_ACTION_BUNDLE_REQUEST = 827327;
+	private final static int PICK_ACTION_REQUEST = 12345;
+    private final static int IMPORT_ACTION_BUNDLE_REQUEST = 827327;
 
 	public interface OnActionBundleSelectedListener {
 		public void onActionBundleSelected(int position);
@@ -83,7 +83,13 @@ public class FragmentActionBundleList extends ListFragment implements
 		setListAdapter(mAdapter);
 	}
 
-	@Override
+    @Override
+    public void onResume() {
+        getActivity().getActionBar().setTitle(R.string.app_name);
+        super.onResume();
+    }
+
+    @Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.fragment_action_bundle_list, menu);
 	}
@@ -176,6 +182,7 @@ public class FragmentActionBundleList extends ListFragment implements
 					Toast.LENGTH_SHORT).show();
 		}
 		mAdapter.notifyDataSetChanged();
+        scrollToBottom();
 	}
 
 	public void showRenameDialog() {
@@ -286,8 +293,13 @@ public class FragmentActionBundleList extends ListFragment implements
             if (resultCode == Activity.RESULT_OK) {
                 mCallback.onActionBundleImported(data.getIntExtra(ActivityTagInfo.ACTION_BUNDLE_ID, -1));
                 mAdapter.notifyDataSetChanged();
+                scrollToBottom();
             }
         }
+    }
+
+    private void scrollToBottom() {
+        getListView().setSelection(getListView().getAdapter().getCount());
     }
 
 	private class ActionBundleListAdapter extends ArrayAdapter<ActionBundle> {

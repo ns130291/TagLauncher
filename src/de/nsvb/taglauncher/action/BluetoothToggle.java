@@ -10,7 +10,7 @@ public class BluetoothToggle extends Action {
 
 	public BluetoothToggle() {
 		mImageResource = R.drawable.perm_group_bluetooth;
-		mMessage.add(new Byte(ActionID.BLUETOOTH_TOGGLE));
+		mMessage.add(ActionID.BLUETOOTH_TOGGLE);
 	}
 
 	@Override

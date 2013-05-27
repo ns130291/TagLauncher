@@ -17,7 +17,7 @@ public class DialogFragmentRename extends DialogFragment {
 		public void onRenameDialogPositiveClick(String name);
 	}
 
-	RenameDialogListener mListener;
+	private RenameDialogListener mListener;
 
 	// Override the Fragment.onAttach() method to instantiate the
 	// NoticeDialogListener

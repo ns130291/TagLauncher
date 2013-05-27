@@ -11,7 +11,7 @@ public class MediaPause extends Action {
 
 	public MediaPause() {
 		mImageResource = R.drawable.action_pause;
-		mMessage.add(new Byte(ActionID.MEDIA_PAUSE));
+		mMessage.add(ActionID.MEDIA_PAUSE);
 	}
 
 	@Override

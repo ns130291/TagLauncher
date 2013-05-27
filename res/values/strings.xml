@@ -27,7 +27,6 @@
     <string name="s_byte_2">%1$s von %2$s Byte</string>
     <string name="write_ab_to_tag">Tag beschreiben</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_activity_execute_tag">ActivityExecuteTag</string>
     <string name="waiting_for_tag">Warte auf Tag&#8230;</string>
     <string name="writing_to_tag">Wird beschrieben&#8230;</string>
     <string name="writing_failed">Beschreiben fehlgeschlagen</string>    
@@ -55,6 +54,10 @@
     <string name="execute_action_bundle">Aktionsbündel ausführen</string>
     <string name="tag_info">Tag Info</string>
     <string name="importAB">Importieren</string>
+    <string name="execute">Ausführen</string>
+    <string name="duplicate_error">Duplizieren fehlgeschlagen</string>
+    <string name="pref_show_executed_actions">Aktionen beim Scannen anzeigen</string>
+    <string name="pref_show_executed_actions_summary">Zeigt beim Ausführen eines Tags die Aktionen an</string>
 
     <string name="ac_bluetooth_on">Bluetooth anschalten</string>
     <string name="ac_bluetooth_off">Bluetooth ausschalten</string>
@@ -69,5 +72,4 @@
     <string name="ac_launch_app">%1$s starten</string>
     <string name="ac_media_play">Musik abspielen</string>
     <string name="ac_media_pause">Musik pausieren</string>
-    <string name="duplicate_error">Duplizieren fehlgeschlagen</string>
 </resources>

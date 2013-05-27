@@ -59,7 +59,6 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
     private IntentFilter[] mFilters;
     private String[][] mTechLists;
     private TextView mText;
-    private Button mButtonCancel;
     private ScrollView mScrollView;
     private Tag mTag;
     private NdefMessage mMessage;
@@ -74,7 +73,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
 
         mScrollView = (ScrollView) findViewById(R.id.scrollView);
         mText = (TextView) findViewById(R.id.status);
-        mButtonCancel = (Button) findViewById(R.id.cancel);
+        Button buttonCancel = (Button) findViewById(R.id.cancel);
 
         // TODO test availability, fallback if not available
         mAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -93,7 +92,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
             mText.setText(R.string.waiting_for_tag);
         }
 
-        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

@@ -23,7 +23,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	private int mId;
 	private int mSize;
 	private String mName = "";
-	private List<Action> mActions = new ArrayList<Action>();
+	private List<Action> mActions = new ArrayList<>();
 	private Context mAppContext;
 	private NdefMessage mNdefMessage;
 
@@ -79,17 +79,6 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
 		//Log.d("** Store in removeAction()");
-	}
-
-	public void switchActions(int from, int to) {
-		SQLiteDatabase db = Store.instance().getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(Store.DB_AB_MESSAGE, getMessageByte());
-
-		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
-
-		//Log.d("** Store in switchActions()");
 	}
 
 	public boolean execute() {
@@ -195,7 +184,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 	private byte[] getMessageByte() {
 
-		List<Byte> recordMessage = new ArrayList<Byte>();
+		List<Byte> recordMessage = new ArrayList<>();
 		for (Action action : mActions) {
 			recordMessage.addAll(action.getMessage());
 		}

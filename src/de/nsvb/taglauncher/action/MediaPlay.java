@@ -11,7 +11,7 @@ public class MediaPlay extends Action {
 
 	public MediaPlay() {
 		mImageResource = R.drawable.action_play;
-		mMessage.add(new Byte(ActionID.MEDIA_PLAY));
+		mMessage.add(ActionID.MEDIA_PLAY);
 	}
 
 	@Override
