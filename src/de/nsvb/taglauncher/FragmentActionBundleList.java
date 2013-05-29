@@ -86,6 +86,7 @@ public class FragmentActionBundleList extends ListFragment implements
     @Override
     public void onResume() {
         getActivity().getActionBar().setTitle(R.string.app_name);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
         super.onResume();
     }
 

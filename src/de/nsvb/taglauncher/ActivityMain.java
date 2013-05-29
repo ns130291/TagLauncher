@@ -146,12 +146,6 @@ public class ActivityMain extends Activity implements
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_settings:
@@ -166,8 +160,7 @@ public class ActivityMain extends Activity implements
 
         FragmentTransaction fragmentTransaction = getFragmentManager()
                 .beginTransaction();
-        fragmentTransaction
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
         fragmentTransaction.replace(R.id.fragment_container,
                 fragmentSettings);
         fragmentTransaction.addToBackStack(null);
@@ -184,8 +177,7 @@ public class ActivityMain extends Activity implements
 
         FragmentTransaction fragmentTransaction = getFragmentManager()
                 .beginTransaction();
-        fragmentTransaction
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
         fragmentTransaction.replace(R.id.fragment_container,
                 fragmentActionDetails);
         fragmentTransaction.addToBackStack(null);
@@ -219,8 +211,7 @@ public class ActivityMain extends Activity implements
 
         FragmentTransaction fragmentTransaction = getFragmentManager()
                 .beginTransaction();
-        fragmentTransaction
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
         fragmentTransaction.replace(R.id.fragment_container,
                 fragmentActionExtended);
         fragmentTransaction.addToBackStack(null);

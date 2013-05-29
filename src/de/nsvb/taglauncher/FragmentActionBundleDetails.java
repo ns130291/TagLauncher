@@ -127,8 +127,6 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		mDslv = (DragSortListView) view.findViewById(android.R.id.list);
 		registerForContextMenu(mDslv);
 
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-
 		mName = (TextView) view.findViewById(R.id.heading);
 		mName.setText(ActivityMain.mActionBundles.get(mPosition).getName());
 		mSize = (TextView) view.findViewById(R.id.size);
@@ -164,6 +162,7 @@ public class FragmentActionBundleDetails extends ListFragment implements
     @Override
     public void onResume() {
         getActivity().getActionBar().setTitle(R.string.details);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         super.onResume();
     }
 

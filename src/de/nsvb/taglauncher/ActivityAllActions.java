@@ -28,13 +28,6 @@ public class ActivityAllActions extends Activity implements OnExtendedActionSele
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_all_actions, menu);
-		return true;
-	}
-
-	@Override
 	public void onExtendedActionSelected(ExtendedAction action) {
 		FragmentActionExtended fragment = new FragmentActionExtended();
 
@@ -44,8 +37,7 @@ public class ActivityAllActions extends Activity implements OnExtendedActionSele
 
 		FragmentTransaction fragmentTransaction = getFragmentManager()
 				.beginTransaction();
-		fragmentTransaction
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
 		fragmentTransaction.replace(R.id.fragment_container,
 				fragment);
 		fragmentTransaction.addToBackStack(null);

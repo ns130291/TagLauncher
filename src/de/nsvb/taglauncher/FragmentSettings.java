@@ -26,6 +26,7 @@ public class FragmentSettings extends PreferenceFragment {
     @Override
     public void onResume() {
         getActivity().getActionBar().setTitle(R.string.settings);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         super.onResume();
     }
 
