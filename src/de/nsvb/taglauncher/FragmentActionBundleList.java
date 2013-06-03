@@ -87,6 +87,9 @@ public class FragmentActionBundleList extends ListFragment implements
     public void onResume() {
         getActivity().getActionBar().setTitle(R.string.app_name);
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mAdapter.notifyDataSetChanged();
+
         super.onResume();
     }
 
@@ -299,7 +302,7 @@ public class FragmentActionBundleList extends ListFragment implements
         }
     }
 
-    private void scrollToBottom() {
+    public void scrollToBottom() {
         getListView().setSelection(getListView().getAdapter().getCount());
     }
 

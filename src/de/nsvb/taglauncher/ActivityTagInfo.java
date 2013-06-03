@@ -40,7 +40,6 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
 
         setContentView(R.layout.activity_tag_info);
 
-        // TODO test availability, fallback if not available
         mAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mAdapter == null) {
@@ -97,11 +96,16 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
     @Override
     public void onPause() {
         super.onPause();
+        if (mAdapter != null)
+            mAdapter.disableForegroundDispatch(this);
     }
 
     @Override
     public void onNewIntent(Intent intent) {
         Log.d("Discovered tag with intent: " + intent);
+
+        mAB = null;
+        invalidateOptionsMenu();
 
         if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);

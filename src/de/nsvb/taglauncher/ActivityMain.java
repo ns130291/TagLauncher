@@ -196,7 +196,7 @@ public class ActivityMain extends Activity implements
         getFragmentManager().popBackStackImmediate();
         FragmentActionBundleList frag = (FragmentActionBundleList) getFragmentManager()
                 .findFragmentByTag(ACTION_BUNDLE_LIST);
-        frag.setSelection(position);
+        frag.scrollToBottom();
     }
 
     @Override

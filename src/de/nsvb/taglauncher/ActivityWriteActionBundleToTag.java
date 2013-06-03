@@ -75,7 +75,6 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
         mText = (TextView) findViewById(R.id.status);
         Button buttonCancel = (Button) findViewById(R.id.cancel);
 
-        // TODO test availability, fallback if not available
         mAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mAdapter == null) {
