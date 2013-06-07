@@ -22,8 +22,8 @@ public class RingerNormal extends ExtendedAction {
 	public RingerNormal() {
 		super();
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.RINGER_NORMAL));
-		mMessage.add(new Byte((byte) 255));
+		mMessage.add(ActionID.RINGER_NORMAL);
+		mMessage.add((byte) 255);
 		mView = R.layout.ac_ringer_normal;
 	}
 
@@ -37,14 +37,14 @@ public class RingerNormal extends ExtendedAction {
 		if (mVolume < 0) {
 			mVolume = mVolume + 256;
 		}
-		Log.d("mVolume " + mVolume);
+		//Log.d("mVolume " + mVolume);
 		if (mMessage.size() > 1) {
 			mMessage.remove(1);
 		}
 		if (mVolume >= 0 && mVolume <= 254) {
-			mMessage.add(new Byte((byte) mVolume));
+			mMessage.add((byte) mVolume);
 		} else {
-			mMessage.add(new Byte((byte) 255));
+			mMessage.add((byte) 255);
 		}
 	}
 
@@ -129,11 +129,11 @@ public class RingerNormal extends ExtendedAction {
 
 	@Override
 	public void init(Context ctx, byte[] message) {
-		Log.d("+RingerNormal+ init-message "
-				+ ActivityExecuteTag.toHex(message) + " " + message.length);
+		//Log.d("+RingerNormal+ init-message "
+		//		+ ActivityExecuteTag.toHex(message) + " " + message.length);
 		setVolume(message[0]);
-		Log.d("+RingerNormal+ after init " + mMessage.get(1) + " "
-				+ mMessage.size());
+		//Log.d("+RingerNormal+ after init " + mMessage.get(1) + " "
+		//		+ mMessage.size());
 	}
 
 	// Parcel functions

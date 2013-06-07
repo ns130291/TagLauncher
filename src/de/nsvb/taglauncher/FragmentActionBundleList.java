@@ -41,10 +41,12 @@ public class FragmentActionBundleList extends ListFragment implements
 	private View mSelectedView;
 	private boolean mNewActionBundle;
 
-	public final static int PICK_ACTION_REQUEST = 12345;
+	private final static int PICK_ACTION_REQUEST = 12345;
+    private final static int IMPORT_ACTION_BUNDLE_REQUEST = 827327;
 
 	public interface OnActionBundleSelectedListener {
 		public void onActionBundleSelected(int position);
+        public void onActionBundleImported(int id);
 	}
 
 	@Override
@@ -72,6 +74,8 @@ public class FragmentActionBundleList extends ListFragment implements
 
 		setHasOptionsMenu(true);
 
+		//Log.d("##-onCreate-## Fragment " + ActivityMain.mActionBundles.getClass().getName() + '@' + Integer.toHexString(ActivityMain.mActionBundles.hashCode()) + " ");
+
 		mAdapter = new ActionBundleListAdapter(getActivity()
 				.getApplicationContext(), R.layout.list_item_card,
 				ActivityMain.mActionBundles);
@@ -79,7 +83,17 @@ public class FragmentActionBundleList extends ListFragment implements
 		setListAdapter(mAdapter);
 	}
 
-	@Override
+    @Override
+    public void onResume() {
+        getActivity().getActionBar().setTitle(R.string.app_name);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mAdapter.notifyDataSetChanged();
+
+        super.onResume();
+    }
+
+    @Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.fragment_action_bundle_list, menu);
 	}
@@ -91,12 +105,24 @@ public class FragmentActionBundleList extends ListFragment implements
 		case R.id.add_action_bundle:
 			createNewActionBundle();
 			return true;
+        case R.id.test_tag:
+            testTag();
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	@Override
+    private void testTag() {
+        if(ActivityMain.noNFC){
+            Toast.makeText(getActivity(), getString(R.string.no_nfc_support),
+                    Toast.LENGTH_LONG).show();
+        }else{
+            startActivityForResult(new Intent(getActivity(), ActivityTagInfo.class), IMPORT_ACTION_BUNDLE_REQUEST);
+        }
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater
@@ -156,11 +182,11 @@ public class FragmentActionBundleList extends ListFragment implements
 				ActivityMain.mActionBundles.add(newAb);
 			}
 		} catch (CloneNotSupportedException e) {
-			// TODO String resource
-			Toast.makeText(getActivity(), "Duplizieren fehlgeschlagen",
+			Toast.makeText(getActivity(), getResources().getString(R.string.duplicate_error),
 					Toast.LENGTH_SHORT).show();
 		}
 		mAdapter.notifyDataSetChanged();
+        scrollToBottom();
 	}
 
 	public void showRenameDialog() {
@@ -259,7 +285,7 @@ public class FragmentActionBundleList extends ListFragment implements
 						ActivityMain.mActionBundles.add(ab);
 						mCallback
 								.onActionBundleSelected(ActivityMain.mActionBundles
-										.indexOf(ab));
+                                        .indexOf(ab));
 					} else {
 						mCallback.onActionBundleSelected(mPosition);
 					}
@@ -267,7 +293,18 @@ public class FragmentActionBundleList extends ListFragment implements
 				// mAdapter.notifyDataSetChanged();
 			}
 		}
-	}
+        if (requestCode == IMPORT_ACTION_BUNDLE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                mCallback.onActionBundleImported(data.getIntExtra(ActivityTagInfo.ACTION_BUNDLE_ID, -1));
+                mAdapter.notifyDataSetChanged();
+                scrollToBottom();
+            }
+        }
+    }
+
+    public void scrollToBottom() {
+        getListView().setSelection(getListView().getAdapter().getCount());
+    }
 
 	private class ActionBundleListAdapter extends ArrayAdapter<ActionBundle> {
 
@@ -334,10 +371,10 @@ public class FragmentActionBundleList extends ListFragment implements
 				Log.d("~~Size of current action bundle "
 						+ actionBundle.getSize());
 
-				size.setText(String.format(
-						getResources().getString(R.string.s_byte),
-						actionBundle.getSize())
-						+ "");
+                size.setText(String.format(
+                        getResources().getString(R.string.s_byte),
+                        actionBundle.getSize())
+                        + "");
 			}
 
 			return v;

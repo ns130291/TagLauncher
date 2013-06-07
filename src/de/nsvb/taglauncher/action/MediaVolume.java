@@ -17,8 +17,8 @@ public class MediaVolume extends ExtendedAction {
 	public MediaVolume() {
 		super();
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.MEDIA_VOLUME));
-		mMessage.add(new Byte((byte) 128));
+		mMessage.add(ActionID.MEDIA_VOLUME);
+		mMessage.add((byte) 128);
 		mView = R.layout.ac_media_volume;
 	}
 
@@ -32,12 +32,12 @@ public class MediaVolume extends ExtendedAction {
 		if (mVolume < 0) {
 			mVolume = mVolume + 256;
 		}
-		Log.d("mVolume " + mVolume);
+		//Log.d("mVolume " + mVolume);
 		if (mMessage.size() > 1) {
 			mMessage.remove(1);
 		}
 		if (mVolume >= 0 && mVolume <= 255) {
-			mMessage.add(new Byte((byte) mVolume));
+			mMessage.add((byte) mVolume);
 		}
 	}
 
@@ -104,13 +104,13 @@ public class MediaVolume extends ExtendedAction {
 
 	@Override
 	public void init(Context ctx, byte[] message) {
-		Log.d("+MediaVolume+ init-message "
-						+ ActivityExecuteTag.toHex(message) + " "
-						+ message.length);
+		//Log.d("+MediaVolume+ init-message "
+		//				+ ActivityExecuteTag.toHex(message) + " "
+		//				+ message.length);
 		setVolume(message[0]);
-		Log.d("+MediaVolume+ after init "
-						+ mMessage.get(1) + " "
-						+ mMessage.size());
+		//Log.d("+MediaVolume+ after init "
+		//				+ mMessage.get(1) + " "
+		//				+ mMessage.size());
 	}
 
 	// Parcel functions

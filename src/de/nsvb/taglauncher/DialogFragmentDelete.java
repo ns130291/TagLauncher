@@ -18,7 +18,7 @@ public class DialogFragmentDelete extends DialogFragment {
 		public void onDeleteDialogPositiveClick();
 	}
 
-	DeleteDialogListener mListener;
+	private DeleteDialogListener mListener;
 
 	// Override the Fragment.onAttach() method to instantiate the
 	// NoticeDialogListener

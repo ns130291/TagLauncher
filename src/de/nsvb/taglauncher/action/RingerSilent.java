@@ -10,7 +10,7 @@ public class RingerSilent extends Action {
 	
 	public RingerSilent() {
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.RINGER_SILENT));
+		mMessage.add(ActionID.RINGER_SILENT);
 	}
 
 	@Override

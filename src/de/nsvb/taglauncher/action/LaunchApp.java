@@ -42,7 +42,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 	public LaunchApp() {
 		super();
 		mImageResource = R.drawable.app_icon;
-		mMessage.add(new Byte(ActionID.LAUNCH_APP));
+		mMessage.add(ActionID.LAUNCH_APP);
 		mDelimiter = ';';
 		mDelimiter2 = ':';
 		mView = R.layout.ac_launch_app;
@@ -55,7 +55,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 			loadApps(ctx, pm);
 		}		
 		
-		Log.d(ActivityExecuteTag.toHex(message) + " blubbbbbbbbb");
+		//Log.d(ActivityExecuteTag.toHex(message) + " blubbbbbbbbb");
 		int pos = -1;
 		for (int i = 0; i < message.length; i++) {
 			if (message[i] == mDelimiter2) {
@@ -65,9 +65,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		}
 
 		byte[] pName = new byte[pos];
-		for (int i = 0; i < pName.length; i++) {
-			pName[i] = message[i];
-		}
+        System.arraycopy(message, 0, pName, 0, pName.length);
 
 		String packageName = null;
 		try {
@@ -101,7 +99,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 			}
 		}
 
-		Log.d("pName " + packageName + " cName " + className +" "+className.length()+" "+cName.length);
+		//Log.d("pName " + packageName + " cName " + className +" "+className.length()+" "+cName.length);
 
 		setPackageName(packageName, className);
 
@@ -119,7 +117,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		try {
 			ctx.startActivity(start);
 		} catch (ActivityNotFoundException e) {
-			//App nicht vorhanden, Play Store öffnen
+			//App nicht vorhanden, Play Store Ã¶ffnen
 			Intent intent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("market://details?id=" + mAppPackageName));
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -140,11 +138,12 @@ public class LaunchApp extends ExtendedActionVariableSize {
 	}
 	
 	private void loadApps(Context ctx, PackageManager pm){
+        //long start = System.currentTimeMillis();
 		Intent localIntent = new Intent("android.intent.action.MAIN", null);
 		localIntent.addCategory("android.intent.category.LAUNCHER");
 		mAppList = (ArrayList<ResolveInfo>) pm.queryIntentActivities(
 				localIntent, 0);
-		Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(pm));		
+        //Log.d("loadApps: "+(System.currentTimeMillis()-start)+" ms");
 	}
 
 	@Override
@@ -152,6 +151,9 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		mPm = ctx.getPackageManager();
 		if(mAppList == null){
 			loadApps(ctx, mPm);
+            //start = System.currentTimeMillis();
+            Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
+            //Log.d("loadApps sort: "+(System.currentTimeMillis()-start)+" ms");
 		}
 
 		Spinner spinner = (Spinner) v.findViewById(R.id.select_app);
@@ -198,19 +200,19 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		byte[] cName = className.getBytes(Charset.forName("US-ASCII"));
 
 		List<Byte> message = new ArrayList<Byte>();
-		message.add(new Byte(ActionID.LAUNCH_APP));
+		message.add(ActionID.LAUNCH_APP);
 
-		for (int i = 0; i < pName.length; i++) {
-			message.add(new Byte(pName[i]));
-		}
+        for (byte aPName : pName) {
+            message.add(aPName);
+        }
 
-		message.add(new Byte(mDelimiter2));
+		message.add(mDelimiter2);
 
-		for (int i = 0; i < cName.length; i++) {
-			message.add(new Byte(cName[i]));
-		}
+        for (byte aCName : cName) {
+            message.add(aCName);
+        }
 
-		message.add(new Byte(mDelimiter));
+		message.add(mDelimiter);
 
 		mMessage = message;
 	}

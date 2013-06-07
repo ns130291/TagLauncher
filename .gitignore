@@ -3,3 +3,7 @@
 .project
 project.properties
 bin
+.idea
+out
+TagLauncher.iml
+build.gradle

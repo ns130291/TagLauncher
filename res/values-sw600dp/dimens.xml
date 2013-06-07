@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="p_top_bottom_ab_list">24dp</dimen>
+    <dimen name="p_left_right_ab_list">64dp</dimen>
+    <dimen name="p_ab_card">16dp</dimen>
+    <dimen name="p_ab_card_item">4dp</dimen>
+    <dimen name="ts_ab_card_item">16sp</dimen>
+    <dimen name="p_ab_card_item_image_width">64dp</dimen>
+    <dimen name="divider_ab_list">22dp</dimen>
+</resources>

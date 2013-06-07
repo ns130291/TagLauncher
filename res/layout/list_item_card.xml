@@ -3,23 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp" >
+    android:paddingLeft="@dimen/p_left_right_ab_list"
+    android:paddingRight="@dimen/p_left_right_ab_list" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_background"
         android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
+        android:paddingBottom="@dimen/p_ab_card"
+        android:paddingTop="@dimen/p_ab_card" >
 
         <RelativeLayout
             android:id="@+id/headingParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp" >
+            android:paddingLeft="@dimen/p_ab_card"
+            android:paddingRight="@dimen/p_ab_card" >
 
             <TextView
                 android:id="@+id/heading"
@@ -47,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="@dimen/p_ab_card"
+            android:layout_marginRight="@dimen/p_ab_card"
             android:background="@android:color/holo_orange_light" >
         </View>
 

@@ -10,7 +10,7 @@ public class WlanOn extends Action {
 
 	public WlanOn() {
 		mImageResource = R.drawable.perm_group_network;
-		mMessage.add(new Byte(ActionID.WLAN_ON));
+		mMessage.add(ActionID.WLAN_ON);
 	}
 
 	@Override

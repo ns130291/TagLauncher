@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import de.nsvb.taglauncher.ActivityExecuteTag;
 import de.nsvb.taglauncher.R;
 import de.nsvb.taglauncher.db.Store;
@@ -29,11 +31,26 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		this.mAppContext = appContext;
 	}
 
+    public int getId(){
+        return mId;
+    }
+
+    public void store(){
+        SQLiteDatabase db = Store.instance().getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Store.DB_AB_MESSAGE, getMessageByte());
+        if (mId == 0) {
+            values.put(Store.DB_AB_NAME, mName);
+            mId = (int) db.insert(Store.DB_AB_TABLENAME, null, values);
+        } else {
+            db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
+        }
+    }
+
 	public void addAction(Action action) {
 		mSize = 0;
 		mNdefMessage = null;
 		mActions.add(action);
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -45,7 +62,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		} else {
 			db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 		}
-		Log.d("** Store in addAction()");
+		//Log.d("** Store in addAction()");
 
 	}
 
@@ -53,7 +70,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		mSize = 0;
 		mNdefMessage = null;
 		mActions.remove(position);
-		// TODO: in DB speichern
+
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -61,19 +78,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in removeAction()");
-	}
-
-	public void switchActions(int from, int to) {
-		// TODO: in DB speichern
-		SQLiteDatabase db = Store.instance().getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(Store.DB_AB_MESSAGE, getMessageByte());
-
-		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
-
-		Log.d("** Store in switchActions()");
+		//Log.d("** Store in removeAction()");
 	}
 
 	public boolean execute() {
@@ -94,13 +99,19 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	}
 
 	public void init(byte[] message) {
-		Log.d("init-message " + ActivityExecuteTag.toHex(message));
+        //long getAction = 0;
+        //long variableExtraSize = 0;
+        //long extended = 0;
+		//Log.d("init-message " + ActivityExecuteTag.toHex(message));
 		for (int i = 0; i < message.length; i++) {
+            //long x = System.nanoTime();
 			Action a = ActionID.getAction(message[i]);
+            //getAction +=  System.nanoTime() - x;
 			if (a != null) {
 				if (a.isExtended()) {
 					ExtendedAction ea = (ExtendedAction) a;
 					if (ea.isVariableExtraSize()) {
+                        //long y = System.currentTimeMillis();
 						ExtendedActionVariableSize eavs = (ExtendedActionVariableSize) ea;
 						byte delimiter = eavs.getDelimiter();
 						int pos = -1;
@@ -112,14 +123,16 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 						}
 						if (pos >= 0) {
 							byte[] extendedMessage = new byte[pos - i];
-							for (int j = 0; j < (pos - 1)
+							for (int j = 0; j < extendedMessage.length
 									&& (i + 1) < message.length; j++) {
 								i++;
 								extendedMessage[j] = message[i];
 							}
 							eavs.init(mAppContext, extendedMessage);
 						}
+                        //variableExtraSize += System.currentTimeMillis() - y;
 					} else {
+                        //long y = System.currentTimeMillis();
 						byte[] extendedMessage = new byte[ea
 								.getExtendedLength()];
 						for (int j = 0; j < ea.getExtendedLength()
@@ -128,11 +141,13 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 							extendedMessage[j] = message[i];
 						}
 						ea.init(mAppContext, extendedMessage);
+                        //extended += System.currentTimeMillis() - y;
 					}
 				}
 				mActions.add(a);
 			}
 		}
+        //Log.d("AB init: getAction "+getAction/1000.0/1000.0+" ms, variableExtraSize "+variableExtraSize+" ms, extended "+extended+" ms");
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -155,20 +170,14 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	private void generateMessage() {
 		NdefRecord data;
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			data = NdefRecord.createExternal("de.nsvb", "taglauncher",
+			data = NdefRecord.createExternal("nsvb.de", "taglauncher",
 					getMessageByte());
 		} else {
-			data = NdefHelper.createExternal("de.nsvb", "taglauncher",
+			data = NdefHelper.createExternal("nsvb.de", "taglauncher",
 					getMessageByte());
 		}
-		// TODO vermutlich weglassen, macht es einfacher die richtige Activity
-		// zu starten
-		// NdefRecord aar =
-		// NdefRecord.createApplicationRecord("de.nsvb.writenfc");
-		// NdefRecord records[] = new NdefRecord[2];
+
 		NdefRecord records[] = new NdefRecord[1];
-		// records[0] = aar;
-		// records[1] = data;
 		records[0] = data;
 		mNdefMessage = new NdefMessage(records);
 	}
@@ -183,8 +192,8 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 		for (int i = 0; i < recordMessage.size(); i++) {
 			recordMessageByte[i] = recordMessage.get(i);
 		}
-		Log.d("getMessageByte() "
-						+ ActivityExecuteTag.toHex(recordMessageByte));
+		//Log.d("getMessageByte() "
+		//				+ ActivityExecuteTag.toHex(recordMessageByte));
 		return recordMessageByte;
 	}
 
@@ -198,7 +207,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 	public void setName(String name) {
 		this.mName = name;
-		// TODO: in DB speichern
+
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -206,7 +215,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in setName()");
+		//Log.d("** Store in setName()");
 	}
 
 	public void setId(int id) {
@@ -214,18 +223,16 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	}
 
 	public void delete() {
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 		db.delete(Store.DB_AB_TABLENAME, "id=" + mId, null);
 
-		Log.d("** Store in delete()");
+		//Log.d("** Store in delete()");
 	}
 
 	public void notifyChange() {
 		mSize = 0;
 		mNdefMessage = null;
 
-		// TODO: in DB speichern
 		SQLiteDatabase db = Store.instance().getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -233,7 +240,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 		db.update(Store.DB_AB_TABLENAME, values, "id=" + mId, null);
 
-		Log.d("** Store in notifyChange()");
+		//Log.d("** Store in notifyChange()");
 	}
 
 	public List<Action> getActionList() {
@@ -255,4 +262,5 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 				this.getName()));
 		return newAb;
 	}
+
 }

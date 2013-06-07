@@ -10,7 +10,7 @@ public class WlanOff extends Action {
 	
 	public WlanOff() {
 		mImageResource = R.drawable.perm_group_network;
-		mMessage.add(new Byte(ActionID.WLAN_OFF));
+		mMessage.add(ActionID.WLAN_OFF);
 	}
 
 	@Override

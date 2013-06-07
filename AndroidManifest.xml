@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.nsvb.taglauncher"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -24,12 +24,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="de.nsvb.taglauncher.ActivityWriteActionBundleToTag"
+            android:name=".ActivityWriteActionBundleToTag"
             android:label="@string/write_ab_to_tag" >
         </activity>
         <activity
+            android:name=".ActivityTagInfo"
+            android:label="@string/tag_info"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
+        </activity>
+        <activity
             android:name="de.nsvb.taglauncher.ActivityExecuteTag"
-            android:label="@string/title_activity_activity_execute_tag"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -38,7 +43,7 @@
 
                 <data
                     android:host="ext"
-                    android:pathPrefix="/de.nsvb:taglauncher"
+                    android:pathPrefix="/nsvb.de:taglauncher"
                     android:scheme="vnd.android.nfc" />
             </intent-filter>
         </activity>

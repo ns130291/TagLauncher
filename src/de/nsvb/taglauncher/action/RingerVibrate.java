@@ -10,7 +10,7 @@ public class RingerVibrate extends Action {
 	
 	public RingerVibrate() {
 		mImageResource = R.drawable.perm_group_audio_settings;
-		mMessage.add(new Byte(ActionID.RINGER_VIBRATE));
+		mMessage.add(ActionID.RINGER_VIBRATE);
 	}
 
 	@Override

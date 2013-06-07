@@ -38,7 +38,7 @@ public class ActionID {
 	public static final byte MEDIA_PAUSE = 0x25;
 
 	/**
-	 * Gibt entsprechend zu {@code id} die dazugehörige Aktion zurück
+	 * Gibt entsprechend zu {@code id} die dazugehÃ¶rige Aktion zurÃ¼ck
 	 * 
 	 * @param id Ein Wert aus {@link ActionID}
 	 * @return Aktion
@@ -79,27 +79,27 @@ public class ActionID {
 		}
 	}
 	
-	//darf nicht static sein, getClass() ist sonst nicht möglich
+	//darf nicht static sein, getClass() ist sonst nicht mÃ¶glich
 	/**
-	 * Lädt eine Liste aller verfügbaren Aktionen
+	 * LÃ¤dt eine Liste aller verfÃ¼gbaren Aktionen
 	 * 
-	 * @return Liste aller verfügbaren Aktionen, leer wenn keine Aktionen vorhanden
+	 * @return Liste aller verfÃ¼gbaren Aktionen, leer wenn keine Aktionen vorhanden
 	 */
 	public List<Action> getActionList() {
 		Field[] fields = ActionID.class.getFields();
 		List<Action> actions = new ArrayList<Action>();
-		for (int i = 0; i < fields.length; i++) {
-			try {
-				Action temp = getAction(fields[i].getByte(getClass()));
-				if (temp != null) {
-					actions.add(temp);
-				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
+        for (Field field : fields) {
+            try {
+                Action temp = getAction(field.getByte(getClass()));
+                if (temp != null) {
+                    actions.add(temp);
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 		Collections.sort(actions);
 		return actions;
 	}

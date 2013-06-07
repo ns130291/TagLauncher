@@ -34,7 +34,7 @@ import de.nsvb.taglauncher.action.ActionBundle;
 public class FragmentActionBundleDetails extends ListFragment implements
 		RenameDialogListener, DeleteDialogListener {
 	public final static String ARG_POSITION = "de.nsvb.taglauncher.position";
-	public final static int PICK_ACTION_REQUEST = 1234;
+	private final static int PICK_ACTION_REQUEST = 1234;
 
 	private int mPosition;
 	private int mAPosition;
@@ -46,11 +46,11 @@ public class FragmentActionBundleDetails extends ListFragment implements
 	private DragSortListView mDslv;
 	private DragSortController mController;
 
-	public int dragStartMode = DragSortController.ON_DOWN;
+	private int dragStartMode = DragSortController.ON_DOWN;
 	// public boolean removeEnabled = false;
 	// public int removeMode = DragSortController.FLING_RIGHT_REMOVE;
-	public boolean sortEnabled = true;
-	public boolean dragEnabled = true;
+    private boolean sortEnabled = true;
+	private boolean dragEnabled = true;
 
 	public interface FragmentActionBundleListener {
 		public void onDuplicate(int position);
@@ -79,8 +79,7 @@ public class FragmentActionBundleDetails extends ListFragment implements
 				Action item = mAdapter.getItem(from);
 				mAdapter.remove(item);
 				mAdapter.insert(item, to);
-				ActivityMain.mActionBundles.get(mPosition).switchActions(from,
-						to);
+				ActivityMain.mActionBundles.get(mPosition).store();
 			}
 		}
 	};
@@ -118,7 +117,7 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		mDslv.setFloatViewManager(sFVWM);
 
 		mDslv.setDropListener(onDrop);
-	};
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,8 +126,6 @@ public class FragmentActionBundleDetails extends ListFragment implements
 				container, false);
 		mDslv = (DragSortListView) view.findViewById(android.R.id.list);
 		registerForContextMenu(mDslv);
-
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		mName = (TextView) view.findViewById(R.id.heading);
 		mName.setText(ActivityMain.mActionBundles.get(mPosition).getName());
@@ -160,15 +157,14 @@ public class FragmentActionBundleDetails extends ListFragment implements
 				(ArrayList<Action>) ActivityMain.mActionBundles.get(mPosition)
 						.getActionList());
 		setListAdapter(mAdapter);
-
-		getActivity().getActionBar().setTitle(R.string.details);
 	}
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		getActivity().getActionBar().setTitle(R.string.app_name);
-	}
+    @Override
+    public void onResume() {
+        getActivity().getActionBar().setTitle(R.string.details);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        super.onResume();
+    }
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -194,40 +190,55 @@ public class FragmentActionBundleDetails extends ListFragment implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.add_action:
-			onAddActionClick();
-			return true;
-		case R.id.rename_action_bundle:
-			showRenameDialog();
-			return true;
-		case R.id.duplicate_action_bundle:
-			duplicateActionBundle();
-			return true;
-		case R.id.delete_action_bundle:
-			deleteActionBundle();
-			return true;
-		case R.id.write_ab_to_tag:
-			writeAbToTag();
-			return true;
-		case android.R.id.home:
-			getFragmentManager().popBackStack();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add_action:
+                onAddActionClick();
+                break;
+            case R.id.rename_action_bundle:
+                showRenameDialog();
+                break;
+            case R.id.duplicate_action_bundle:
+                duplicateActionBundle();
+                break;
+            case R.id.delete_action_bundle:
+                deleteActionBundle();
+                break;
+            case R.id.write_ab_to_tag:
+                writeAbToTag();
+                break;
+            case R.id.execute_action_bundle:
+                executeActionBundle();
+                break;
+            case android.R.id.home:
+                getFragmentManager().popBackStack();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-	private void writeAbToTag() {
-		Intent writeMessage = new Intent(getActivity(),
-				ActivityWriteActionBundleToTag.class);
-		writeMessage.putExtra(ActivityWriteActionBundleToTag.MESSAGE,
-				ActivityMain.mActionBundles.get(mPosition).getMessage());
+    private void executeActionBundle() {
+        if(ActivityMain.mActionBundles.get(mPosition).execute()){
+            Toast.makeText(getActivity(), R.string.tag_execute_success, Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getActivity(), R.string.tag_execute_failure, Toast.LENGTH_LONG).show();
+        }
+    }
 
-		startActivity(writeMessage);
-	}
+    private void writeAbToTag() {
+        if (ActivityMain.noNFC) {
+            Toast.makeText(getActivity(), getString(R.string.no_nfc_support),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Intent writeMessage = new Intent(getActivity(),
+                    ActivityWriteActionBundleToTag.class);
+            writeMessage.putExtra(ActivityWriteActionBundleToTag.MESSAGE,
+                    ActivityMain.mActionBundles.get(mPosition).getMessage());
+
+            startActivity(writeMessage);
+        }
+    }
 
 	private void deleteActionBundle() {
 		DialogFragmentDelete dialog = new DialogFragmentDelete();
