@@ -87,7 +87,7 @@ public class ActionID {
 	 */
 	public List<Action> getActionList() {
 		Field[] fields = ActionID.class.getFields();
-		List<Action> actions = new ArrayList<>();
+		List<Action> actions = new ArrayList<Action>();
         for (Field field : fields) {
             try {
                 Action temp = getAction(field.getByte(getClass()));

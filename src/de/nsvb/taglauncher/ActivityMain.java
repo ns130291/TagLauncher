@@ -28,7 +28,7 @@ public class ActivityMain extends Activity implements
         OnApplyListener, DialogFragmentFirstRun.FirstRunDialogListener, DialogFragmentNfcDisabled.NfcDisabledDialogListener {
 
     private static final String PREFS_NAME = "prefs";
-    public static ArrayList<ActionBundle> mActionBundles = new ArrayList<>();
+    public static ArrayList<ActionBundle> mActionBundles = new ArrayList<ActionBundle>();
     private static final String ACTION_BUNDLE_LIST = "abl";
     public static boolean noNFC;
 
@@ -40,7 +40,7 @@ public class ActivityMain extends Activity implements
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         // TODO set to false
-        Log.DEBUG = true;
+        //Log.DEBUG = true;
 
         // Background von Activity entfernen um Overdraw zu vermeiden --> macht
         // animation kaputt

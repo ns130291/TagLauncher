@@ -199,7 +199,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 		byte[] pName = packageName.getBytes(Charset.forName("US-ASCII"));
 		byte[] cName = className.getBytes(Charset.forName("US-ASCII"));
 
-		List<Byte> message = new ArrayList<>();
+		List<Byte> message = new ArrayList<Byte>();
 		message.add(ActionID.LAUNCH_APP);
 
         for (byte aPName : pName) {
@@ -253,7 +253,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			mTextViewResourceId = textViewResourceId;
 			mPm = pm;
-			mDrawables = new HashMap<>();
+			mDrawables = new HashMap<String, Drawable>();
 		}
 
 		@Override

@@ -65,9 +65,9 @@
     <string name="ac_ringer_vibrate">Vibrate</string>
     <string name="ac_ringer_silent">Mute</string>
     <string name="ac_media_volume">Media Volume %1$s</string>
-    <string name="ac_wlan_on">Enable W-LAN</string>
-    <string name="ac_wlan_off">Disable W-LAN</string>
-    <string name="ac_wlan_toggle">Toggle W-LAN</string>
+    <string name="ac_wlan_on">Enable Wi-Fi</string>
+    <string name="ac_wlan_off">Disable Wi-Fi</string>
+    <string name="ac_wlan_toggle">Toggle Wi-Fi</string>
     <string name="ac_launch_app">Start %1$s</string>
     <string name="ac_media_play">Play music</string>
     <string name="ac_media_pause">Pause music</string>

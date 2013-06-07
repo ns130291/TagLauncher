@@ -23,7 +23,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 	private int mId;
 	private int mSize;
 	private String mName = "";
-	private List<Action> mActions = new ArrayList<>();
+	private List<Action> mActions = new ArrayList<Action>();
 	private Context mAppContext;
 	private NdefMessage mNdefMessage;
 
@@ -184,7 +184,7 @@ public class ActionBundle implements Iterable<Action>, Cloneable {
 
 	private byte[] getMessageByte() {
 
-		List<Byte> recordMessage = new ArrayList<>();
+		List<Byte> recordMessage = new ArrayList<Byte>();
 		for (Action action : mActions) {
 			recordMessage.addAll(action.getMessage());
 		}

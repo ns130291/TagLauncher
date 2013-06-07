@@ -11,7 +11,7 @@ public abstract class Action implements Comparable<Action>, Cloneable,
 		Parcelable {
 	protected int mImageResource;
 	protected boolean mExtended = false;
-	protected List<Byte> mMessage = new ArrayList<>();
+	protected List<Byte> mMessage = new ArrayList<Byte>();
 
 	public abstract boolean execute(Context ctx);
 
