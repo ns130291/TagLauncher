@@ -1,6 +1,5 @@
 package de.nsvb.taglauncher;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +9,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.*;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +22,7 @@ import de.nsvb.taglauncher.util.Log;
 /**
  * Created by ns130291 on 20.05.13.
  */
-public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabled.NfcDisabledDialogListener {
+public class ActivityTagInfo extends ActionBarActivity implements DialogFragmentNfcDisabled.NfcDisabledDialogListener {
 
     private NfcAdapter mAdapter;
     private PendingIntent mPendingIntent;
@@ -36,7 +36,7 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_tag_info);
 
@@ -207,7 +207,7 @@ public class ActivityTagInfo extends Activity implements DialogFragmentNfcDisabl
             mAB.store();
             Intent returnIntent = new Intent();
             returnIntent.putExtra(ACTION_BUNDLE_ID, mAB.getId());
-            setResult(Activity.RESULT_OK, returnIntent);
+            setResult(ActionBarActivity.RESULT_OK, returnIntent);
             finish();
         }else{
             finish();

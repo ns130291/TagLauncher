@@ -3,6 +3,7 @@ package de.nsvb.taglauncher;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +26,8 @@ public class FragmentSettings extends PreferenceFragment {
 
     @Override
     public void onResume() {
-        getActivity().getActionBar().setTitle(R.string.settings);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.settings);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onResume();
     }
 

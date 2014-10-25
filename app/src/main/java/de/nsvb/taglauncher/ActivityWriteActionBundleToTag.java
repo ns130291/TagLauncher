@@ -43,6 +43,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivityWriteActionBundleToTag extends Activity implements DialogFragmentNfcDisabled.NfcDisabledDialogListener {
+public class ActivityWriteActionBundleToTag extends ActionBarActivity implements DialogFragmentNfcDisabled.NfcDisabledDialogListener {
 
     public static final String MESSAGE = "de.nsvb.taglauncher.message";
 
@@ -67,7 +68,7 @@ public class ActivityWriteActionBundleToTag extends Activity implements DialogFr
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_write_message_to_tag);
 

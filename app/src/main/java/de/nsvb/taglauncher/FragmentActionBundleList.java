@@ -10,6 +10,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -85,8 +86,8 @@ public class FragmentActionBundleList extends ListFragment implements
 
     @Override
     public void onResume() {
-        getActivity().getActionBar().setTitle(R.string.app_name);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         mAdapter.notifyDataSetChanged();
 
@@ -129,7 +130,7 @@ public class FragmentActionBundleList extends ListFragment implements
 				.inflate(R.layout.fragment_action_bundle_list, null);
 		registerForContextMenu(view.findViewById(android.R.id.list));
 
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		Button newAb = (Button) view
 				.findViewById(R.id.button_new_action_bundle);
@@ -270,7 +271,7 @@ public class FragmentActionBundleList extends ListFragment implements
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == PICK_ACTION_REQUEST) {
-			if (resultCode == Activity.RESULT_OK) {
+			if (resultCode == ActionBarActivity.RESULT_OK) {
 
 				Action temp = data.getParcelableExtra("action");
 				if (temp != null) {
@@ -294,7 +295,7 @@ public class FragmentActionBundleList extends ListFragment implements
 			}
 		}
         if (requestCode == IMPORT_ACTION_BUNDLE_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == ActionBarActivity.RESULT_OK) {
                 mCallback.onActionBundleImported(data.getIntExtra(ActivityTagInfo.ACTION_BUNDLE_ID, -1));
                 mAdapter.notifyDataSetChanged();
                 scrollToBottom();

@@ -2,7 +2,6 @@ package de.nsvb.taglauncher;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -23,7 +23,7 @@ import de.nsvb.taglauncher.action.ActionBundle;
 import de.nsvb.taglauncher.db.Store;
 import de.nsvb.taglauncher.util.Log;
 
-public class ActivityMain extends Activity implements
+public class ActivityMain extends ActionBarActivity implements
         OnActionBundleSelectedListener, FragmentActionBundleListener,
         OnApplyListener, DialogFragmentFirstRun.FirstRunDialogListener, DialogFragmentNfcDisabled.NfcDisabledDialogListener {
 

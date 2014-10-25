@@ -7,6 +7,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -161,8 +162,8 @@ public class FragmentActionBundleDetails extends ListFragment implements
 
     @Override
     public void onResume() {
-        getActivity().getActionBar().setTitle(R.string.details);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.details);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onResume();
     }
 

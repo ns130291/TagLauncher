@@ -6,9 +6,10 @@ import de.nsvb.taglauncher.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
-public class ActivityAllActions extends Activity implements OnExtendedActionSelectedListener {
+public class ActivityAllActions extends ActionBarActivity implements OnExtendedActionSelectedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
