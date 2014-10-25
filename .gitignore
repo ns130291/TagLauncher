@@ -1,9 +1,6 @@
-.settings
-.classpath
-.project
-project.properties
-bin
-.idea
-out
-TagLauncher.iml
-build.gradle
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
