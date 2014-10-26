@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +66,7 @@ public class FragmentActionExtended extends Fragment {
 				byte actionId = args.getByte(ACTION_ID);
 				mAction = (ExtendedAction) ActionID.getAction(actionId);
 			}
-			getActivity().getActionBar().setDisplayShowTitleEnabled(false);
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 		}
 	}
 
@@ -80,7 +81,7 @@ public class FragmentActionExtended extends Fragment {
 				LayoutParams.MATCH_PARENT);
 		actionContainer.addView(actionView, acViewParams);
 
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		mAction.addInteractionToView(actionView, getActivity());
 
@@ -124,6 +125,6 @@ public class FragmentActionExtended extends Fragment {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		getActivity().getActionBar().setDisplayShowTitleEnabled(true);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
 	}
 }

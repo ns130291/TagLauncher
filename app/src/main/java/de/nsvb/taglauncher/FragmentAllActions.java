@@ -8,6 +8,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,10 +61,10 @@ public class FragmentAllActions extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		getActivity().getActionBar().setTitle(R.string.title_activity_activity_all_actions);
-		
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.title_activity_activity_all_actions);
+
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setHasOptionsMenu(true);
 		
 		mActionList = new ActionID().getActionList();

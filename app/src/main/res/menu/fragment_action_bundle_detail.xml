@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/add_action"
         android:icon="@drawable/ic_action_add"
-        android:showAsAction="always"
+        support:showAsAction="always"
         android:title="@string/add_action"/>
     <item
         android:id="@+id/write_ab_to_tag"
         android:icon="@drawable/ic_action_write_ab_to_tag"
-        android:showAsAction="always"
+        support:showAsAction="always"
         android:title="@string/write_ab_to_tag"/>
     <item
         android:id="@+id/duplicate_action_bundle"
         android:icon="@drawable/ic_action_duplicate"
-        android:showAsAction="always"
+        support:showAsAction="always"
         android:title="@string/duplicate"/>
     <item
         android:id="@+id/delete_action_bundle"
         android:icon="@drawable/ic_action_delete"
-        android:showAsAction="ifRoom"
+        support:showAsAction="ifRoom"
         android:title="@string/delete"/>
     <item
         android:id="@+id/execute_action_bundle"
-        android:showAsAction="never"
+        support:showAsAction="never"
         android:title="@string/execute_action_bundle"/>
     <item
         android:id="@+id/rename_action_bundle"
-        android:showAsAction="never"
+        support:showAsAction="never"
         android:title="@string/rename"/>
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        support:showAsAction="never"
         android:title="@string/menu_settings"/>
 
 </menu>

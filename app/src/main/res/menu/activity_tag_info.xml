@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/importAB"
         android:title="@string/importAB"
-        android:showAsAction="always|withText"
+        support:showAsAction="always|withText"
         android:enabled="false"/>
 
 </menu>
