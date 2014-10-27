@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/duplicate_action_bundle"
-        android:icon="@drawable/ic_action_duplicate"
+        android:icon="@drawable/ic_content_copy_white_24dp"
         support:showAsAction="always"
         android:title="@string/duplicate"/>
     <item

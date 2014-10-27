@@ -9,8 +9,10 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -129,6 +131,9 @@ public class FragmentActionBundleList extends ListFragment implements
 		View view = inflater
 				.inflate(R.layout.fragment_action_bundle_list, null);
 		registerForContextMenu(view.findViewById(android.R.id.list));
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
+        ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
 
         ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 

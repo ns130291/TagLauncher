@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -133,6 +134,9 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		mSize = (TextView) view.findViewById(R.id.size);
 		setSize();
 
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
+        ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
+
 		return view;
 	}
 
@@ -158,6 +162,7 @@ public class FragmentActionBundleDetails extends ListFragment implements
 				(ArrayList<Action>) ActivityMain.mActionBundles.get(mPosition)
 						.getActionList());
 		setListAdapter(mAdapter);
+
 	}
 
     @Override
