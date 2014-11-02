@@ -4,5 +4,10 @@
     <color name="light_blue_700">#0288d1</color>
     <color name="orange_A200">#ffab40</color>
     <color name="orange_A400">#ff9100</color>
+    <color name="white">#ffffff</color>
+    <color name="white_background">#fafafa</color>
+    <color name="black26">#42000000</color>
+    <color name="black54">#8a000000</color>
+    <color name="black87">#de000000</color>
 </resources>
 

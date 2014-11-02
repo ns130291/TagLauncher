@@ -10,7 +10,7 @@ import de.nsvb.taglauncher.R;
 public class MediaPause extends Action {
 
 	public MediaPause() {
-		mImageResource = R.drawable.action_pause;
+		mImageResource = R.drawable.ic_pause_white_24dp;
 		mMessage.add(ActionID.MEDIA_PAUSE);
 	}
 

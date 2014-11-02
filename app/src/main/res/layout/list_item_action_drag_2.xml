@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingLeft="16dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/actionImg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/light_blue_500"/>
+
+    <TextView
+        android:id="@+id/actionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="test etse tst "
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="#808080"
+        android:textSize="16sp"
+        android:background="@color/orange_A400"/>
+
+    <!--
+         <ImageView
+        android:id="@id/drag_handle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:background="#abcdef"
+        android:paddingLeft="8dp" />
+    -->
+
+        <de.nsvb.taglauncher.ui.DragGripView
+            android:id="@+id/drag_handle"
+            android:layout_width="64dp"
+            android:layout_height="40dp"
+            android:color="#2333"/>
+
+    </LinearLayout>

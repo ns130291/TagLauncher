@@ -9,7 +9,7 @@ import de.nsvb.taglauncher.R;
 public class RingerVibrate extends Action {
 	
 	public RingerVibrate() {
-		mImageResource = R.drawable.perm_group_audio_settings;
+		mImageResource = R.drawable.ic_vibration_white_24dp;
 		mMessage.add(ActionID.RINGER_VIBRATE);
 	}
 

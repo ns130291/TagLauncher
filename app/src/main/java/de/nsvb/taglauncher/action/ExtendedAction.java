@@ -17,7 +17,7 @@ public abstract class ExtendedAction extends Action {
 
 	public abstract ExtendedAction saveUserInput(View v);
 
-	public void addInteractionToView(View v, Context ctx) {
+	public void addInteractionToView(View v, Context ctx) { // TODO why is this method not abstract?
 
 	}
 

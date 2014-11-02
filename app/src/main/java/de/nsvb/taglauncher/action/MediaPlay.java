@@ -10,7 +10,7 @@ import de.nsvb.taglauncher.R;
 public class MediaPlay extends Action {
 
 	public MediaPlay() {
-		mImageResource = R.drawable.action_play;
+		mImageResource = R.drawable.ic_play_arrow_white_24dp;
 		mMessage.add(ActionID.MEDIA_PLAY);
 	}
 

@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class BluetoothOff extends Action {
 	
 	public BluetoothOff() {
-		mImageResource = R.drawable.perm_group_bluetooth;
+		mImageResource = R.drawable.ic_bluetooth_disabled_white_24dp;
 		mMessage.add(ActionID.BLUETOOTH_OFF);
 	}
 

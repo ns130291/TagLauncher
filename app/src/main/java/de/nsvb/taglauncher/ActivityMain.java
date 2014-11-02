@@ -33,8 +33,16 @@ public class ActivityMain extends ActionBarActivity implements
     public static boolean noNFC;
 
     @Override
+    public void onBackPressed() { // TODO evaluate why I need this workaround since using Toolbars as ActionBars
+        if(getFragmentManager().getBackStackEntryCount()>0){
+            getFragmentManager().popBackStackImmediate();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
@@ -48,10 +56,12 @@ public class ActivityMain extends ActionBarActivity implements
 
         Store.setContext(getApplicationContext());
 
-        if (savedInstanceState == null && mActionBundles.size() == 0) {
+        if (savedInstanceState == null || mActionBundles.size() == 0) {
             loadFromDB();
             //Log.d("##-onCreate-## savedInstanceState == null || mActionBundles.size() == 0 " + mActionBundles.getClass().getName() + '@' + Integer.toHexString(mActionBundles.hashCode()) + " ��");
         }
+
+        super.onCreate(savedInstanceState); // at this position because app crashes after being reopened after a long time, db has to be loaded first
 
         long start = System.currentTimeMillis();
 
@@ -180,7 +190,7 @@ public class ActivityMain extends ActionBarActivity implements
         fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
         fragmentTransaction.replace(R.id.fragment_container,
                 fragmentActionDetails);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack("fragmentActionDetails");
         fragmentTransaction.commit();
     }
 
@@ -214,7 +224,7 @@ public class ActivityMain extends ActionBarActivity implements
         fragmentTransaction.setCustomAnimations(R.animator.fragment_open_enter, 0, 0, R.animator.fragment_close_exit);
         fragmentTransaction.replace(R.id.fragment_container,
                 fragmentActionExtended);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack("fragmentActionExtended");
         fragmentTransaction.commit();
     }
 

@@ -9,7 +9,7 @@ import de.nsvb.taglauncher.R;
 public class BluetoothOn extends Action {
 
 	public BluetoothOn() {
-		mImageResource = R.drawable.perm_group_bluetooth;
+		mImageResource = R.drawable.ic_bluetooth_white_24dp;
 		mMessage.add(ActionID.BLUETOOTH_ON);
 	}
 

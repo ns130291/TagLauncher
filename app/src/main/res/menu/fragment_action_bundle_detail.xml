@@ -3,11 +3,6 @@
     xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_action"
-        android:icon="@drawable/ic_action_add"
-        support:showAsAction="always"
-        android:title="@string/add_action"/>
-    <item
         android:id="@+id/write_ab_to_tag"
         android:icon="@drawable/ic_nfc_write_white_24dp"
         support:showAsAction="always"
@@ -19,8 +14,8 @@
         android:title="@string/duplicate"/>
     <item
         android:id="@+id/delete_action_bundle"
-        android:icon="@drawable/ic_action_delete"
-        support:showAsAction="ifRoom"
+        android:icon="@drawable/ic_delete_white_24dp"
+        support:showAsAction="always"
         android:title="@string/delete"/>
     <item
         android:id="@+id/execute_action_bundle"

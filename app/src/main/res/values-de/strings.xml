@@ -9,7 +9,7 @@
     <string name="add_action_bundle_2">Aktions-Bündel hinzufügen</string>
     <string name="delete_action_bundle">Aktions-Bündel löschen</string>
     <string name="delete_action_bundle_q">Aktions-Bündel löschen?</string>
-    <string name="delete_action_bundle_dialog">%1$s wird unwiederruflich gelöscht!</string>
+    <string name="delete_action_bundle_dialog">%1$s wird unwiderruflich gelöscht!</string>
     <string name="duplicate_action_bundle">Aktions-Bündel duplizieren</string>
     <string name="rename_action_bundle">Aktions-Bündel umbennen</string>
     <string name="delete">Löschen</string>
@@ -71,4 +71,6 @@
     <string name="ac_launch_app">%1$s starten</string>
     <string name="ac_media_play">Musik abspielen</string>
     <string name="ac_media_pause">Musik pausieren</string>
+    <string name="actions">Aktionen</string>
+    <string name="done">Fertig</string>
 </resources>

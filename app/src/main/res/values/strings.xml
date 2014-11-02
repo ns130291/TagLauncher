@@ -71,4 +71,6 @@
     <string name="ac_launch_app">Start %1$s</string>
     <string name="ac_media_play">Play music</string>
     <string name="ac_media_pause">Pause music</string>
+    <string name="actions">Actions</string>
+    <string name="done">Done</string>
 </resources>

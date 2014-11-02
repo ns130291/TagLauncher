@@ -16,7 +16,6 @@
 
 package de.nsvb.taglauncher.ui;
 
-import de.nsvb.taglauncher.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,34 +25,34 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
-public class DragGripView extends View {
+import de.nsvb.taglauncher.R;
+import de.nsvb.taglauncher.util.Log;
+
+public class DragGripViewMaterial extends View {
     private static final int[] ATTRS = new int[]{
             android.R.attr.gravity,
             android.R.attr.color,
     };
 
-    private static final int HORIZ_RIDGES = 2;
-
     private int mGravity = Gravity.START;
-    private int mColor = 0x33333333;
+    private int mColor = 0x8a000000;
 
-    private Paint mRidgePaint;
+    private Paint mGripPaint;
 
-    private float mRidgeSize;
-    private float mRidgeGap;
+    private float mGripHeight;
 
     private int mWidth;
     private int mHeight;
 
-    public DragGripView(Context context) {
+    public DragGripViewMaterial(Context context) {
         this(context, null, 0);
     }
 
-    public DragGripView(Context context, AttributeSet attrs) {
+    public DragGripViewMaterial(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DragGripView(Context context, AttributeSet attrs, int defStyle) {
+    public DragGripViewMaterial(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
@@ -62,30 +61,17 @@ public class DragGripView extends View {
         a.recycle();
 
         final Resources res = getResources();
-        mRidgeSize = res.getDimensionPixelSize(R.dimen.drag_grip_ridge_size);
-        mRidgeGap = res.getDimensionPixelSize(R.dimen.drag_grip_ridge_gap);
+        mGripHeight = res.getDimensionPixelSize(R.dimen.drag_grip_height);
 
-        mRidgePaint = new Paint();
-        mRidgePaint.setColor(mColor);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(
-                View.resolveSize(
-                        (int) (HORIZ_RIDGES * (mRidgeSize + mRidgeGap) - mRidgeGap)
-                                + getPaddingLeft() + getPaddingRight(),
-                        widthMeasureSpec),
-                View.resolveSize(
-                        (int) mRidgeSize,
-                        heightMeasureSpec));
+        mGripPaint = new Paint();
+        mGripPaint.setColor(mColor);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float drawWidth = HORIZ_RIDGES * (mRidgeSize + mRidgeGap) - mRidgeGap;
+        float drawWidth = (mWidth - getPaddingLeft() - getPaddingRight());
         float drawLeft;
 
         switch (Gravity.getAbsoluteGravity(mGravity, LAYOUT_DIRECTION_RTL)
@@ -101,21 +87,24 @@ public class DragGripView extends View {
                 drawLeft = getPaddingLeft();
         }
 
-        int vertRidges = (int) ((mHeight - getPaddingTop() - getPaddingBottom() + mRidgeGap)
-                / (mRidgeSize + mRidgeGap));
-        float drawHeight = vertRidges * (mRidgeSize + mRidgeGap) - mRidgeGap;
+        int vertRidges = 3;
+        float drawHeight = (mHeight - getPaddingTop() - getPaddingBottom());
         float drawTop = getPaddingTop()
                 + ((mHeight - getPaddingTop() - getPaddingBottom()) - drawHeight) / 2;
 
+        float intermediateHeight = (drawHeight - vertRidges * mGripHeight) / 2;
+
+        Log.d("drawHeight=" + drawHeight);
+        Log.d("intermediateHeight=" + intermediateHeight);
+        Log.d("mGripHeight=" + mGripHeight);
+
         for (int y = 0; y < vertRidges; y++) {
-            for (int x = 0; x < HORIZ_RIDGES; x++) {
                 canvas.drawRect(
-                        drawLeft + x * (mRidgeSize + mRidgeGap),
-                        drawTop + y * (mRidgeSize + mRidgeGap),
-                        drawLeft + x * (mRidgeSize + mRidgeGap) + mRidgeSize,
-                        drawTop + y * (mRidgeSize + mRidgeGap) + mRidgeSize,
-                        mRidgePaint);
-            }
+                        drawLeft,
+                        drawTop + y * (intermediateHeight + mGripHeight),
+                        drawLeft + drawWidth,
+                        drawTop + y * (intermediateHeight + mGripHeight) + mGripHeight,
+                        mGripPaint);
         }
     }
 

@@ -22,15 +22,11 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="Theme.AppCompat.Light.DarkActionBar.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item> <!-- For 2.x version -->
-    </style>
-
-    <style name="Toolbar" parent="Theme.AppCompat.Light">
+    <style name="Toolbar" parent="Theme.AppCompat.Light"><!-- was Theme.AppCompat.Light -->
         <item name="colorPrimary">@color/light_blue_500</item>
         <item name="colorPrimaryDark">@color/light_blue_700</item>
         <item name="colorAccent">@color/orange_A200</item>
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item> <!-- For 2.x version -->
     </style>

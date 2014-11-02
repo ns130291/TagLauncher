@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class WlanOff extends Action {
 	
 	public WlanOff() {
-		mImageResource = R.drawable.perm_group_network;
+		mImageResource = R.drawable.ic_signal_wifi_off_white_24dp;
 		mMessage.add(ActionID.WLAN_OFF);
 	}
 

@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class WlanToggle extends Action {
 	
 	public WlanToggle() {
-		mImageResource = R.drawable.perm_group_network;
+		mImageResource = R.drawable.ic_network_wifi_white_24dp;
 		mMessage.add(ActionID.WLAN_TOGGLE);
 	}
 

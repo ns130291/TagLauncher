@@ -1,46 +1,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingLeft="16dp">
 
     <ImageView
         android:id="@+id/actionImg"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:layout_alignParentStart="true"
+        android:scaleType="center"
+        android:layout_centerVertical="true"
+        android:background="@drawable/roundbackground"
+        tools:src="@drawable/ic_bluetooth_white_24dp"/>
 
     <TextView
         android:id="@+id/actionText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_toLeftOf="@+id/drag_handle"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/extended_settings"
+        android:layout_toLeftOf="@id/extended_settings"
+        android:layout_toEndOf="@id/actionImg"
         android:layout_toRightOf="@id/actionImg"
-        android:ellipsize="marquee"
+        android:ellipsize="middle"
         android:singleLine="true"
-        android:textColor="#808080"
-        android:textSize="18sp" />
+        android:textColor="@color/black87"
+        android:textSize="16sp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        tools:text="Abc die Katze lief im Schnee bla bla bla bla "/>
 
-    <!--
-         <ImageView
+
+    <ImageView
+        android:id="@id/extended_settings"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/drag_handle"
+        android:layout_toLeftOf="@+id/drag_handle"
+        android:alpha="0.26"
+        tools:src="@drawable/ic_settings_black_24dp" />
+
+
+    <de.nsvb.taglauncher.ui.DragGripViewMaterial
         android:id="@id/drag_handle"
         android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:layout_alignParentRight="true"
-        android:background="#abcdef"
-        android:paddingLeft="8dp" />
-    -->
-
-    <de.nsvb.taglauncher.ui.DragGripView
-        android:id="@+id/drag_handle"
-        android:layout_width="64dp"
-        android:layout_height="48dp"
-        android:layout_gravity="fill_vertical|end"
-        android:layout_alignParentRight="true"
-        android:paddingBottom="8dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:color="#2333" />
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
+        android:layout_centerVertical="true"
+        android:color="@color/black87" />
 
 </RelativeLayout>

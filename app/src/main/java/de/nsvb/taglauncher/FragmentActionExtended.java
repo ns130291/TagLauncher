@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,6 +107,10 @@ public class FragmentActionExtended extends Fragment {
 			}
 		});
 
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
+        ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(mAction.getDescription(getActivity()));
 		return view;
 	}
 

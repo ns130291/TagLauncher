@@ -16,7 +16,7 @@ public class MediaVolume extends ExtendedAction {
 
 	public MediaVolume() {
 		super();
-		mImageResource = R.drawable.perm_group_audio_settings;
+		mImageResource = R.drawable.ic_volume_up_white_24dp;
 		mMessage.add(ActionID.MEDIA_VOLUME);
 		mMessage.add((byte) 128);
 		mView = R.layout.ac_media_volume;

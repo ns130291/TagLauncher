@@ -21,7 +21,7 @@ public class RingerNormal extends ExtendedAction {
 
 	public RingerNormal() {
 		super();
-		mImageResource = R.drawable.perm_group_audio_settings;
+		mImageResource = R.drawable.ic_ring_volume_white_24dp;
 		mMessage.add(ActionID.RINGER_NORMAL);
 		mMessage.add((byte) 255);
 		mView = R.layout.ac_ringer_normal;

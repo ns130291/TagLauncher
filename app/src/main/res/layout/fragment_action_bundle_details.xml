@@ -1,53 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true" >
+    <!-- descendantFocusability & focusableInTouchMode for closing the CAB and losing focus of edittext -->
 	
 	<android.support.v7.widget.Toolbar
 		android:id="@+id/action_bar_toolbar"
-		android:layout_height="wrap_content"
+		android:layout_height="?attr/actionBarSize"
 		android:layout_width="match_parent"
-		android:minHeight="?attr/actionBarSize"
 		android:background="?attr/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:contentInsetStart="72dp"/>
 
     <RelativeLayout
         android:id="@+id/header"
 		android:layout_below="@id/action_bar_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:padding="8dp" >
+        android:layout_height="72dp"
+        android:paddingLeft="68dp"
+        android:paddingStart="68dp"
+        android:paddingRight="12dp"
+        android:paddingEnd="12dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="2dp">
+        <!-- edit text has 4dp left&right padding from material theme -->
 
-        <TextView
+        <EditText
             android:id="@+id/heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/size"
-            android:ellipsize="marquee"
             android:fontFamily="sans-serif-light"
             android:singleLine="true"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="textNoSuggestions|textCapSentences|text"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:imeOptions="flagNoExtractUi"
+            tools:text="Aktions-Bündel hat einen sehr langen Namen"/>
+            <!-- TODO change *somehow* the color of the black bar without changing the app theme -->
+
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/list_header"
+        android:layout_below="@id/header"
+        android:orientation="horizontal"
+        android:paddingLeft="72dp"
+        android:paddingStart="72dp"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/white_background">
 
         <TextView
-            android:id="@id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+            android:text="@string/actions"
+            android:layout_weight="1"
+            android:textColor="@color/black54"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black54"
+            android:textSize="14sp"
+            tools:text="123 Byte"/>
+
+    </LinearLayout>
 
     <com.mobeta.android.dslv.DragSortListView
         xmlns:dslv="http://schemas.android.com/apk/res-auto"
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:background="@android:color/background_light"
-        dslv:float_background_color="#e5e5e5" >
+        android:layout_below="@id/list_header"
+        android:background="@color/white_background"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        dslv:float_background_color="#e5e5e5"
+        tools:listitem="@layout/list_item_action_drag">
     </com.mobeta.android.dslv.DragSortListView>
+
+    <com.shamanland.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@id/header"
+        android:layout_marginBottom="@dimen/floating_action_button_margin_mini_minus"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_add_white_24dp"
+        app:floatingActionButtonSize="mini"
+        app:floatingActionButtonColor="@color/orange_A200"
+
+        />
 
 </RelativeLayout>

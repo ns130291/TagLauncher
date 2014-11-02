@@ -6,8 +6,13 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Outline;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,8 +22,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,7 +51,9 @@ public class FragmentActionBundleDetails extends ListFragment implements
 	private ArrayAdapter<Action> mAdapter;
 	private FragmentActionBundleListener mCallback;
 	private TextView mSize;
-	private TextView mName;
+	private EditText mName;
+    private ActionMode mActionMode;
+    private Toolbar mActionBar;
 
 	private DragSortListView mDslv;
 	private DragSortController mController;
@@ -53,6 +63,50 @@ public class FragmentActionBundleDetails extends ListFragment implements
 	// public int removeMode = DragSortController.FLING_RIGHT_REMOVE;
     private boolean sortEnabled = true;
 	private boolean dragEnabled = true;
+
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback(){
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            mActionBar.setVisibility(View.GONE); // TODO resolve workaround as <item name="windowActionModeOverlay">true</item> doesn't work
+            MenuInflater inflater = actionMode.getMenuInflater();
+            inflater.inflate(R.menu.fragment_action_bundle_detail_cab, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.done:
+                    ActivityMain.mActionBundles.get(mPosition).setName(mName.getText().toString());
+                    actionMode.finish();
+                    return true;
+                default:
+                    actionMode.finish();
+                    return false;
+            }
+
+        }
+
+        private void loseFocus() {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mName.getApplicationWindowToken(), 0);
+            mName.clearFocus();
+            mName.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP); // TODO remove when better method is available
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            mName.setText(ActivityMain.mActionBundles.get(mPosition).getName());
+            loseFocus();
+            mActionBar.setVisibility(View.VISIBLE); // TODO resolve workaround as <item name="windowActionModeOverlay">true</item> doesn't work
+        }
+    };
 
 	public interface FragmentActionBundleListener {
 		public void onDuplicate(int position);
@@ -129,13 +183,38 @@ public class FragmentActionBundleDetails extends ListFragment implements
 		mDslv = (DragSortListView) view.findViewById(android.R.id.list);
 		registerForContextMenu(mDslv);
 
-		mName = (TextView) view.findViewById(R.id.heading);
+		mName = (EditText) view.findViewById(R.id.heading);
+        mName.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP); // TODO remove when better method is available
 		mName.setText(ActivityMain.mActionBundles.get(mPosition).getName());
+        mName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    mActionMode = ((ActionBarActivity) getActivity()).startSupportActionMode(mActionModeCallback);
+                }else{
+                    if(mActionMode != null) {
+                        mActionMode.finish();
+                        mActionMode = null;
+                    }
+                    mName.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP); // TODO remove when better method is available
+                }
+            }
+        });
+
+
 		mSize = (TextView) view.findViewById(R.id.size);
 		setSize();
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
-        ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
+        View fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAddActionClick();
+            }
+        });
+
+        mActionBar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
+        ((ActionBarActivity) getActivity()).setSupportActionBar(mActionBar);
 
 		return view;
 	}
@@ -272,8 +351,7 @@ public class FragmentActionBundleDetails extends ListFragment implements
 				mCallback.onDuplicate(mPosition);
 			}
 		} catch (CloneNotSupportedException e) {
-			// TODO String resource
-			Toast.makeText(getActivity(), "Duplizieren fehlgeschlagen",
+			Toast.makeText(getActivity(), getResources().getString(R.string.duplicate_error),
 					Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -353,8 +431,14 @@ public class FragmentActionBundleDetails extends ListFragment implements
 			if (action != null) {
 				TextView name = (TextView) v.findViewById(R.id.actionText);
 				ImageView image = (ImageView) v.findViewById(R.id.actionImg);
+                ImageView settings = (ImageView) v.findViewById(R.id.extended_settings);
 				name.setText(action.getDescription(getContext()));
 				image.setImageResource(action.getImage());
+                if(action.isExtended()){
+                    settings.setImageResource(R.drawable.ic_settings_black_24dp);
+                }else{
+                    settings.setImageResource(0);
+                }
 			}
 
 			return v;

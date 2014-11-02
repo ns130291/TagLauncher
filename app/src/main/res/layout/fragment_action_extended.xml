@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    android:padding="16dp" >
+    android:orientation="vertical"    >
 
-    <ScrollView
-        android:id="@+id/ac_container"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/action_bar_toolbar"
+        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/ac_apply"
-        android:layout_marginBottom="8dp">
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:contentInsetStart="72dp"/>
 
-    </ScrollView>
-
-    <Button
-        android:id="@id/ac_apply"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/apply" />
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:padding="16dp" >
 
-</RelativeLayout>
+        <ScrollView
+            android:id="@+id/ac_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/ac_apply"
+            android:layout_marginBottom="8dp">
+
+        </ScrollView>
+
+        <Button
+            android:id="@id/ac_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/apply" />
+
+    </RelativeLayout>
+</LinearLayout>

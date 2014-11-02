@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -41,7 +42,7 @@ public class LaunchApp extends ExtendedActionVariableSize {
 
 	public LaunchApp() {
 		super();
-		mImageResource = R.drawable.app_icon;
+		mImageResource = R.drawable.ic_android_white_24dp;
 		mMessage.add(ActionID.LAUNCH_APP);
 		mDelimiter = ';';
 		mDelimiter2 = ':';
@@ -138,30 +139,50 @@ public class LaunchApp extends ExtendedActionVariableSize {
 	}
 	
 	private void loadApps(Context ctx, PackageManager pm){
-        //long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
 		Intent localIntent = new Intent("android.intent.action.MAIN", null);
 		localIntent.addCategory("android.intent.category.LAUNCHER");
 		mAppList = (ArrayList<ResolveInfo>) pm.queryIntentActivities(
 				localIntent, 0);
-        //Log.d("loadApps: "+(System.currentTimeMillis()-start)+" ms");
+        Log.d("loadApps: "+(System.currentTimeMillis()-start)+" ms");
 	}
 
 	@Override
 	public void addInteractionToView(View v, Context ctx) {
-		mPm = ctx.getPackageManager();
-		if(mAppList == null){
-			loadApps(ctx, mPm);
-            //start = System.currentTimeMillis();
-            Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
-            //Log.d("loadApps sort: "+(System.currentTimeMillis()-start)+" ms");
-		}
+        final Context context = ctx;
+        final View view = v;
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mPm = context.getPackageManager();
+                if(mAppList == null){
+                    loadApps(context, mPm);
+                    long start = System.currentTimeMillis();
+                    Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
+                    Log.d("loadApps sort: "+(System.currentTimeMillis()-start)+" ms");
+                } else {
+                    long start = System.currentTimeMillis();
+                    Collections.sort(mAppList, new ResolveInfo.DisplayNameComparator(mPm));
+                    Log.d("loadApps sort: "+(System.currentTimeMillis()-start)+" ms");
+                }
 
-		Spinner spinner = (Spinner) v.findViewById(R.id.select_app);
-		spinner.setAdapter(new PackageInfoAdapter(ctx, R.layout.spinner_item,
-				mAppList, mPm));
-		if (mAppPackageName != null && mClassName != null) {
-			spinner.setSelection(findPackagePosition(mAppPackageName, mClassName));
-		}
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Spinner spinner = (Spinner) view.findViewById(R.id.select_app);
+                        spinner.setAdapter(new PackageInfoAdapter(context, R.layout.spinner_item,
+                                mAppList, mPm));
+                        if (mAppPackageName != null && mClassName != null) {
+                            spinner.setSelection(findPackagePosition(mAppPackageName, mClassName));
+                        }
+                    }
+                });
+
+
+            }
+        });
+        t.start();
+
 	}
 
 	@Override

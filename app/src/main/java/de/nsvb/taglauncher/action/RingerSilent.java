@@ -9,7 +9,7 @@ import de.nsvb.taglauncher.R;
 public class RingerSilent extends Action {
 	
 	public RingerSilent() {
-		mImageResource = R.drawable.perm_group_audio_settings;
+		mImageResource = R.drawable.ic_volume_off_white_24dp;
 		mMessage.add(ActionID.RINGER_SILENT);
 	}
 

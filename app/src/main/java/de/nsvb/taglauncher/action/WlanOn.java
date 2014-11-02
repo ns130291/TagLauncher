@@ -9,7 +9,7 @@ import de.nsvb.taglauncher.R;
 public class WlanOn extends Action {
 
 	public WlanOn() {
-		mImageResource = R.drawable.perm_group_network;
+		mImageResource = R.drawable.ic_network_wifi_white_24dp;
 		mMessage.add(ActionID.WLAN_ON);
 	}
 
