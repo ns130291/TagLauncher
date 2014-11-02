@@ -22,10 +22,6 @@
         support:showAsAction="never"
         android:title="@string/execute_action_bundle"/>
     <item
-        android:id="@+id/rename_action_bundle"
-        support:showAsAction="never"
-        android:title="@string/rename"/>
-    <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
         support:showAsAction="never"

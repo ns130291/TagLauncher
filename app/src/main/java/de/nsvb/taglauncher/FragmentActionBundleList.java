@@ -364,6 +364,7 @@ public class FragmentActionBundleList extends ListFragment implements
 						ImageView actionImg = (ImageView) actionView
 								.findViewById(R.id.actionImg);
 						actionImg.setImageResource(action.getImage());
+                        actionImg.setColorFilter(Color.BLACK);
 
 						TextView actionText = (TextView) actionView
 								.findViewById(R.id.actionText);

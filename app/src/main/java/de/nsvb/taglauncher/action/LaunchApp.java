@@ -185,7 +185,12 @@ public class LaunchApp extends ExtendedActionVariableSize {
 
 	}
 
-	@Override
+    @Override
+    public String getActivityDescription(Context ctx) {
+        return String.format(ctx.getString(R.string.ac_launch_app), "App");
+    }
+
+    @Override
 	public ExtendedAction saveUserInput(View v) {
 		Spinner spinner = (Spinner) v.findViewById(R.id.select_app);
 		ResolveInfo resolveInfo = mAppList.get(spinner

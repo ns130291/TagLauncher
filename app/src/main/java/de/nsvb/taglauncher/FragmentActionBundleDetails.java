@@ -191,10 +191,12 @@ public class FragmentActionBundleDetails extends ListFragment implements
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     mActionMode = ((ActionBarActivity) getActivity()).startSupportActionMode(mActionModeCallback);
+                    ((ActivityMain) getActivity()).mActionMode = mActionMode;
                 }else{
                     if(mActionMode != null) {
                         mActionMode.finish();
                         mActionMode = null;
+                        ((ActivityMain) getActivity()).mActionMode = null;
                     }
                     mName.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP); // TODO remove when better method is available
                 }

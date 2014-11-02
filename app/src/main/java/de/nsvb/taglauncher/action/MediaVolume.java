@@ -85,7 +85,12 @@ public class MediaVolume extends ExtendedAction {
 		}
 	}
 
-	@Override
+    @Override
+    public String getActivityDescription(Context ctx) {
+        return String.format(ctx.getString(R.string.ac_media_volume), "");
+    }
+
+    @Override
 	protected Object clone() throws CloneNotSupportedException {
 		Class<? extends MediaVolume> classAction = this.getClass();
 		MediaVolume newA;

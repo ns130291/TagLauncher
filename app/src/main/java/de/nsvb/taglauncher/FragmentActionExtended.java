@@ -110,7 +110,7 @@ public class FragmentActionExtended extends Fragment {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.action_bar_toolbar);
         ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
         ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(mAction.getDescription(getActivity()));
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(mAction.getActivityDescription(getActivity()));
 		return view;
 	}
 

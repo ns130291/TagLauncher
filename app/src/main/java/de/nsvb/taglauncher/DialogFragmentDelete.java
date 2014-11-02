@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.ContextThemeWrapper;
 
 public class DialogFragmentDelete extends DialogFragment {
 	public final static String NAME = "name";
@@ -44,7 +45,7 @@ public class DialogFragmentDelete extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()/*new ContextThemeWrapper(getActivity(), R.style.material)*/);
 				
 		String name = getArguments().getString(NAME, "");
 		String messageString = String.format(getResources().getString(R.string.delete_action_bundle_dialog), name);

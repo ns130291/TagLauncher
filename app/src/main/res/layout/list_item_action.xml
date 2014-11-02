@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
     android:paddingTop="@dimen/p_ab_card_item"
@@ -9,7 +10,11 @@
         android:layout_width="@dimen/p_ab_card_item_image_width"
         android:layout_height="32dp"
         android:paddingLeft="@dimen/p_ab_card"
-        android:paddingRight="@dimen/p_ab_card" />
+        android:paddingRight="@dimen/p_ab_card"
+        android:alpha="0.87"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        tools:src="@drawable/ic_bluetooth_white_24dp"/>
 
     <TextView
         android:id="@+id/actionText"
@@ -20,6 +25,7 @@
         android:singleLine="true"
         android:textColor="#707070" 
         android:textSize="@dimen/ts_ab_card_item"
-        android:paddingRight="@dimen/p_ab_card"/>
+        android:paddingRight="@dimen/p_ab_card"
+        tools:text="ABc 123 sado as sd "/>
 
 </LinearLayout>

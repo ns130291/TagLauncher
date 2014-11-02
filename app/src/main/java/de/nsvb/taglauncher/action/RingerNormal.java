@@ -110,7 +110,12 @@ public class RingerNormal extends ExtendedAction {
 		}
 	}
 
-	@Override
+    @Override
+    public String getActivityDescription(Context ctx) {
+        return String.format(ctx.getString(R.string.ac_ringer_normal), "");
+    }
+
+    @Override
 	protected Object clone() throws CloneNotSupportedException {
 		Class<? extends RingerNormal> classAction = this.getClass();
 		RingerNormal newA;

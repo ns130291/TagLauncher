@@ -12,6 +12,6 @@
         android:layout_centerHorizontal="true"
         android:focusable="false"
         android:text="@string/add_action"
-        android:textColor="@android:color/primary_text_light" />
+        android:textColor="@android:color/primary_text_light"/>
 
 </RelativeLayout>

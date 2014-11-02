@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.Menu;
 
 import android.view.MenuItem;
+
 import de.nsvb.taglauncher.FragmentActionBundleDetails.FragmentActionBundleListener;
 import de.nsvb.taglauncher.FragmentActionBundleList.OnActionBundleSelectedListener;
 import de.nsvb.taglauncher.FragmentActionExtended.OnApplyListener;
@@ -31,13 +33,19 @@ public class ActivityMain extends ActionBarActivity implements
     public static ArrayList<ActionBundle> mActionBundles = new ArrayList<ActionBundle>();
     private static final String ACTION_BUNDLE_LIST = "abl";
     public static boolean noNFC;
+    public ActionMode mActionMode = null;
 
     @Override
     public void onBackPressed() { // TODO evaluate why I need this workaround since using Toolbars as ActionBars
-        if(getFragmentManager().getBackStackEntryCount()>0){
-            getFragmentManager().popBackStackImmediate();
-        }else{
-            super.onBackPressed();
+        if (mActionMode != null) {
+            mActionMode.finish();
+            mActionMode = null;
+        } else {
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                getFragmentManager().popBackStackImmediate();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -74,9 +82,9 @@ public class ActivityMain extends ActionBarActivity implements
                 DialogFragmentFirstRun dialogFragmentFirstRun = new DialogFragmentFirstRun();
                 dialogFragmentFirstRun.show(getFragmentManager(), "FirstRunDialog");
             }
-        }else{
+        } else {
             noNFC = false;
-            if(!nfcAdapter.isEnabled()){
+            if (!nfcAdapter.isEnabled()) {
                 DialogFragmentNfcDisabled dialogFragmentNfcDisabled = new DialogFragmentNfcDisabled();
                 dialogFragmentNfcDisabled.show(getFragmentManager(), "NfcDisabledDialog");
             }
@@ -115,7 +123,7 @@ public class ActivityMain extends ActionBarActivity implements
         Cursor cs;
         if (db != null) {
             cs = db.query(Store.DB_AB_TABLENAME, new String[]{"id",
-                    Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, null, null, null,
+                            Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, null, null, null,
                     null, "id");
 
             cs.moveToFirst();
@@ -140,7 +148,7 @@ public class ActivityMain extends ActionBarActivity implements
         Cursor cs;
         if (db != null) {
             cs = db.query(Store.DB_AB_TABLENAME, new String[]{"id",
-                    Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, "id = " + id, null, null,
+                            Store.DB_AB_NAME, Store.DB_AB_MESSAGE}, "id = " + id, null, null,
                     null, "id");
 
             cs.moveToFirst();
@@ -157,7 +165,7 @@ public class ActivityMain extends ActionBarActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_settings:
                 showSettings();
                 break;

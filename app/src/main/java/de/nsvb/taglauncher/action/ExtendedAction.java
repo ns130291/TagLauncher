@@ -21,6 +21,8 @@ public abstract class ExtendedAction extends Action {
 
 	}
 
+    public abstract String getActivityDescription(Context ctx);
+
 	public int getExtendedLength() {
 		return 1;
 	}
